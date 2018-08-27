@@ -1,0 +1,6 @@
+.idea 
+target 
+*.impl 
+.scannerwork 
+*.log 
+git-setup.bat 

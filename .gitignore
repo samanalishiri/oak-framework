@@ -1,6 +1,6 @@
 .idea 
 target 
-*.impl 
+*.iml
 .scannerwork 
 *.log 
 git-setup.bat 

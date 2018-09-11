@@ -3,6 +3,13 @@ package com.saman.oak.portal.domain.permission;
 import com.saman.oak.core.domain.Constant;
 import com.saman.oak.portal.SecurityConstant;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ *
+ */
+
 public interface PermissionConstant extends SecurityConstant, Constant {
     String TABLE_NAME = "PERMISSION";
     String ENTITY_NAME = "permissionEntity";

@@ -43,7 +43,7 @@ public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailure
         String username = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY);
         String password = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY);
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(new UserEntity().username(username).password(password), null);
+        Authentication auth = new UsernamePasswordAuthenticationToken(new UserEntity().setUsername(username).setPassword(password), null);
 
         AbstractAuthenticationFailureEvent event;
 

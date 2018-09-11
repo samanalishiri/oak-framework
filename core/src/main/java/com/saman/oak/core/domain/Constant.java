@@ -1,8 +1,13 @@
 package com.saman.oak.core.domain;
 
+
 /**
- * Created by saman on 11/27/2017.
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ *
  */
+
 public interface Constant {
     String ID = "id";
 }

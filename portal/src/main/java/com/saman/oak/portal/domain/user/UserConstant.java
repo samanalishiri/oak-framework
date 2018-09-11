@@ -3,6 +3,12 @@ package com.saman.oak.portal.domain.user;
 import com.saman.oak.core.domain.Constant;
 import com.saman.oak.portal.SecurityConstant;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
 public interface UserConstant extends SecurityConstant, Constant {
     String TABLE_NAME = "USERS";
     String ENTITY_NAME = "userEntity";

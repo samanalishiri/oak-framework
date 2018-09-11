@@ -6,11 +6,19 @@ import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ *
+ */
+
 @MappedSuperclass
 public abstract class BaseEntity<ID extends Serializable> implements Identifiable<ID>, Comparable<BaseEntity>, Serializable {
 
     public static final String UNDER_LINE = "_";
-    public static final String ID_SUFFIX = UNDER_LINE + "ID";
+    public static final String ID_COLUMN = "ID";
+    public static final String ID_SUFFIX = UNDER_LINE + ID_COLUMN;
     public static final String SEQ_SUFFIX = UNDER_LINE + "SEQ";
     public static final String GEN_SUFFIX = UNDER_LINE + "GEN";
     public static final String UQ_SUFFIX = UNDER_LINE + "UQ";
@@ -29,7 +37,7 @@ public abstract class BaseEntity<ID extends Serializable> implements Identifiabl
         if (Objects.isNull(object)) {
             return false;
         }
-        if (getClass() != object.getClass()) {
+        if (this.getClass() != object.getClass()) {
             return false;
         }
 

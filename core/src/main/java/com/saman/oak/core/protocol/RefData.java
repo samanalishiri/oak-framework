@@ -3,7 +3,7 @@ package com.saman.oak.core.protocol;
 /**
  * @author Saman Alishiri
  */
-public interface CodeData {
+public interface RefData {
 
     Integer id();
 

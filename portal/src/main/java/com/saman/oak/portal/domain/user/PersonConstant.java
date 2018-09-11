@@ -1,8 +1,12 @@
 package com.saman.oak.portal.domain.user;
 
+
 /**
- * Created by Administrator on 9/29/2017.
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
  */
+
 public interface PersonConstant {
     String TABLE_NAME = "PERSON";
     String ENTITY_NAME = "personEntity";

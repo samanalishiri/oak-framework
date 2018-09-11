@@ -1,9 +1,6 @@
 package com.saman.oak.portal.domain.user;
 
 import com.saman.oak.core.domain.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -13,12 +10,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by saman on 9/4/2017.
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
  */
+
 @Embeddable
-@Getter
-@Setter
-@Accessors(chain = true, fluent = true)
 public class PersonEntity extends BaseEntity {
 
     @Column(name = "NAME", nullable = false)
@@ -45,6 +42,70 @@ public class PersonEntity extends BaseEntity {
 
     @Override
     public Serializable getId() {
-        return null;
+        return -1;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getNationalCode() {
+        return nationalCode;
+    }
+
+    public String getIcn() {
+        return icn;
+    }
+
+    public String getIcs() {
+        return ics;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public String getBirthPlace() {
+        return birthPlace;
+    }
+
+    public PersonEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public PersonEntity setSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
+    public PersonEntity setNationalCode(String nationalCode) {
+        this.nationalCode = nationalCode;
+        return this;
+    }
+
+    public PersonEntity setIcn(String icn) {
+        this.icn = icn;
+        return this;
+    }
+
+    public PersonEntity setIcs(String ics) {
+        this.ics = ics;
+        return this;
+    }
+
+    public PersonEntity setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+        return this;
+    }
+
+    public PersonEntity setBirthPlace(String birthPlace) {
+        this.birthPlace = birthPlace;
+        return this;
+    }
+
 }

@@ -1,5 +1,12 @@
 package com.saman.oak.portal;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ *
+ */
+
 public interface SecurityConstant {
 
     int SESSION_MAX = 1;

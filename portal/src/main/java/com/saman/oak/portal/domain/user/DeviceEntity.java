@@ -7,12 +7,10 @@ import com.saman.oak.core.converter.IdentifiableToIdConverter;
 import com.saman.oak.core.domain.BaseEntity;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,18 +22,18 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
- * Created by saman on 9/4/2017.
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
  */
-@Getter
-@Setter
-@Accessors(chain = true, fluent = true)
-@javax.persistence.Entity(name = DeviceEntity.ENTITY_NAME)
+
+@Entity(name = DeviceEntity.ENTITY_NAME)
 @Table(name = DeviceEntity.TABLE_NAME, schema = DeviceEntity.SCHEMA)
 @XStreamAlias(DeviceEntity.ENTITY_NAME)
 public class DeviceEntity extends BaseEntity implements DeviceConstant {
 
     @Id
-    @Column(name = TABLE_NAME + ID_SUFFIX, unique = true, nullable = false)
+    @Column(name = ID_COLUMN, unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = TABLE_NAME + GEN_SUFFIX)
     @SequenceGenerator(name = TABLE_NAME + GEN_SUFFIX, sequenceName = TABLE_NAME + SEQ_SUFFIX)
     private Long id;
@@ -55,7 +53,7 @@ public class DeviceEntity extends BaseEntity implements DeviceConstant {
     @XStreamConverter(value = IdentifiableToIdConverter.class)
     @XStreamAlias("typeId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TYPE", referencedColumnName = DeviceTypeEntity.TABLE_NAME + ID_SUFFIX, nullable = false)
+    @JoinColumn(name = "TYPE", referencedColumnName = ID_COLUMN, nullable = false)
     private DeviceTypeEntity type;
 
     @JsonSerialize(using = IdentifiableSerializer.class)
@@ -63,11 +61,62 @@ public class DeviceEntity extends BaseEntity implements DeviceConstant {
     @XStreamConverter(value = IdentifiableToIdConverter.class)
     @XStreamAlias("userId")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", referencedColumnName = UserEntity.TABLE_NAME + ID_SUFFIX, nullable = false)
+    @JoinColumn(name = "USER_ID", referencedColumnName = ID_COLUMN, nullable = false)
     private UserEntity user;
 
     @Override
     public Serializable getId() {
         return id;
     }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public DeviceTypeEntity getType() {
+        return type;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public DeviceEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public DeviceEntity setPrefix(String prefix) {
+        this.prefix = prefix;
+        return this;
+    }
+
+    public DeviceEntity setIdentity(String identity) {
+        this.identity = identity;
+        return this;
+    }
+
+    public DeviceEntity setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
+    public DeviceEntity setType(DeviceTypeEntity type) {
+        this.type = type;
+        return this;
+    }
+
+    public DeviceEntity setUser(UserEntity user) {
+        this.user = user;
+        return this;
+    }
+
 }

@@ -11,8 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 /**
- * Created by Administrator on 9/29/2017.
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
  */
+
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -31,8 +34,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public Optional<UserResource> save(UserEntity entity) {
-        String encodedPassword = passwordEncoder.encode(entity.password());
-        entity.password(encodedPassword);
+        String encodedPassword = passwordEncoder.encode(entity.getPassword());
+        entity.setPassword(encodedPassword);
         UserEntity user = userDetailsDao.save(entity);
 
         return Optional.of(userResourceAssembler.toResource(user));

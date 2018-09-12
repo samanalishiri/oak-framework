@@ -14,5 +14,5 @@ public interface SecurityConstant {
     String SCHEMA = "SECURITY";
     String COOKIE = "JSESSIONID";
     String CSRF_HEADER_NAME = "X-XSRF-TOKEN";
-    String XSRF_TOKEN = "XSRF-TOKEN";
+    String TOKEN_NAME = "XSRF-TOKEN";
 }

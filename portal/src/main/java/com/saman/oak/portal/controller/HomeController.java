@@ -7,6 +7,12 @@ import com.saman.oak.portal.controller.security.LoginController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
 @Controller(HomeController.NAME)
 public class HomeController extends ViewController {
     public static final String NAME = "homeController";
@@ -14,7 +20,6 @@ public class HomeController extends ViewController {
     public static final String PAGE = "/home";
 
     public static final String HOME_URL = BODY + PAGE;
-
 
     @RequestMapping(value = {ROOT})
     public String root() {

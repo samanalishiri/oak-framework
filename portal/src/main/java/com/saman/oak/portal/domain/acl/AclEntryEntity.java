@@ -17,12 +17,10 @@ package com.saman.oak.portal.domain.acl;
  */
 
 import com.saman.oak.core.domain.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,29 +31,32 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-@Getter
-@Setter
-@Accessors(chain = true, fluent = true)
-@javax.persistence.Entity(name = AclEntryEntity.ENTITY_NAME)
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
+@Entity(name = AclEntryEntity.ENTITY_NAME)
 @Table(name = AclEntryEntity.TABLE_NAME, schema = AclEntryEntity.SCHEMA,
         uniqueConstraints = {@UniqueConstraint(name = "ACL_ENTRY_UQ_1", columnNames = {"ACL_OBJECT_IDENTITY", "ACE_ORDER"})})
 public class AclEntryEntity extends BaseEntity<Long> implements AclEntryConstant {
 
     @Id
-    @Column(name = TABLE_NAME + ID_SUFFIX, unique = true, nullable = false)
+    @Column(name = ID_COLUMN, unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = TABLE_NAME + GEN_SUFFIX)
     @SequenceGenerator(name = TABLE_NAME + GEN_SUFFIX, sequenceName = TABLE_NAME + SEQ_SUFFIX)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ACL_OBJECT_IDENTITY", referencedColumnName = AclObjectIdentityEntity.TABLE_NAME + AclObjectIdentityEntity.ID_SUFFIX, nullable = false)
+    @JoinColumn(name = "ACL_OBJECT_IDENTITY", referencedColumnName = ID_COLUMN, nullable = false)
     private AclObjectIdentityEntity aclObjectIdentity;
 
     @Column(name = "ACE_ORDER", nullable = false)
     private Integer aceOrder;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SID", referencedColumnName = AclSidEntity.TABLE_NAME + AclSidEntity.ID_SUFFIX, nullable = false)
+    @JoinColumn(name = "SID", referencedColumnName = ID_COLUMN, nullable = false)
     private AclSidEntity sid;
 
     @Column(name = "MASK", nullable = false)
@@ -77,4 +78,73 @@ public class AclEntryEntity extends BaseEntity<Long> implements AclEntryConstant
     public Long getId() {
         return id;
     }
+
+    public AclObjectIdentityEntity getAclObjectIdentity() {
+        return aclObjectIdentity;
+    }
+
+    public AclEntryEntity setAclObjectIdentity(AclObjectIdentityEntity aclObjectIdentity) {
+        this.aclObjectIdentity = aclObjectIdentity;
+        return this;
+    }
+
+    public Integer getAceOrder() {
+        return aceOrder;
+    }
+
+    public AclEntryEntity setAceOrder(Integer aceOrder) {
+        this.aceOrder = aceOrder;
+        return this;
+    }
+
+    public AclSidEntity getSid() {
+        return sid;
+    }
+
+    public AclEntryEntity setSid(AclSidEntity sid) {
+        this.sid = sid;
+        return this;
+    }
+
+    public Integer getMask() {
+        return mask;
+    }
+
+    public AclEntryEntity setMask(Integer mask) {
+        this.mask = mask;
+        return this;
+    }
+
+    public Boolean getGranting() {
+        return granting;
+    }
+
+    public AclEntryEntity setGranting(Boolean granting) {
+        this.granting = granting;
+        return this;
+    }
+
+    public Boolean getAuditSuccess() {
+        return auditSuccess;
+    }
+
+    public AclEntryEntity setAuditSuccess(Boolean auditSuccess) {
+        this.auditSuccess = auditSuccess;
+        return this;
+    }
+
+    public Boolean getAuditFailure() {
+        return auditFailure;
+    }
+
+    public AclEntryEntity setAuditFailure(Boolean auditFailure) {
+        this.auditFailure = auditFailure;
+        return this;
+    }
+
+    public AclEntryEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
 }

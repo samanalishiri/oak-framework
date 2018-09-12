@@ -9,6 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import static com.saman.oak.portal.controller.HomeController.HOME_URL;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
 
 @ExposesResourceFor(AuthorityResource.class)
 @Controller

@@ -19,6 +19,12 @@ import org.springframework.web.servlet.view.JstlView;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
 @Configuration
 @EnableWebMvc
 @ComponentScan({"com.saman.oak.portal.controller"})

@@ -1,12 +1,5 @@
 package com.saman.oak.core.exception;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
-
-@Setter
-@Getter
-@Accessors(chain = true, fluent = true)
 public class BaseException extends RuntimeException {
 
     private String message;
@@ -22,5 +15,19 @@ public class BaseException extends RuntimeException {
     @Override
     public String getMessage() {
         return this.message;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public BaseException setCode(String code) {
+        this.code = code;
+        return this;
+    }
+
+    public BaseException setMessage(String message) {
+        this.message = message;
+        return this;
     }
 }

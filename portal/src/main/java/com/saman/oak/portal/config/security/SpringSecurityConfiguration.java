@@ -34,6 +34,12 @@ import static com.saman.oak.portal.controller.security.LoginController.LOGOUT_AC
 import static com.saman.oak.portal.domain.user.UserConstant.PASSWORD;
 import static com.saman.oak.portal.domain.user.UserConstant.USERNAME;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
 @Configuration
 @EnableWebSecurity
 @PropertySource(value = {"resources/app.properties"})

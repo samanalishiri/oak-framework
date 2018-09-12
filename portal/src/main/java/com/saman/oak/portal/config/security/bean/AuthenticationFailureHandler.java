@@ -1,6 +1,6 @@
 package com.saman.oak.portal.config.security.bean;
 
-import com.saman.oak.portal.constant.Variable;
+import com.saman.oak.portal.constant.PathVariable;
 import com.saman.oak.portal.controller.security.LoginController;
 import com.saman.oak.portal.domain.user.UserEntity;
 import org.springframework.context.ApplicationEventPublisher;
@@ -25,11 +25,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
 @Component
 public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler implements ApplicationEventPublisherAware {
 
     private ApplicationEventPublisher applicationEventPublisher;
-    private String defaultFailureUrl = LoginController.LOGIN_VIEW + Variable.Default.FAILED;
+
+    private String defaultFailureUrl = LoginController.LOGIN_VIEW + PathVariable.DefaultValue.FAILED;
 
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
@@ -43,20 +50,24 @@ public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailure
         String username = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY);
         String password = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY);
 
-        Authentication auth = new UsernamePasswordAuthenticationToken(new UserEntity().setUsername(username).setPassword(password), null);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(new UserEntity().setUsername(username).setPassword(password), null);
 
         AbstractAuthenticationFailureEvent event;
 
         if (exception instanceof BadCredentialsException) {
-            event = new AuthenticationFailureBadCredentialsEvent(auth, exception);
+            event = new AuthenticationFailureBadCredentialsEvent(authentication, exception);
+
         } else if (exception instanceof AccountExpiredException) {
-            event = new AuthenticationFailureExpiredEvent(auth, exception);
+            event = new AuthenticationFailureExpiredEvent(authentication, exception);
+
         } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
-            event = new AuthenticationFailureBadCredentialsEvent(auth, exception);
+            event = new AuthenticationFailureBadCredentialsEvent(authentication, exception);
+
         } else if (exception instanceof AuthenticationServiceException) {
-            event = new AuthenticationFailureServiceExceptionEvent(auth, exception);
+            event = new AuthenticationFailureServiceExceptionEvent(authentication, exception);
+
         } else {
-            event = new AbstractAuthenticationFailureEvent(auth, exception) {
+            event = new AbstractAuthenticationFailureEvent(authentication, exception) {
             };
         }
 

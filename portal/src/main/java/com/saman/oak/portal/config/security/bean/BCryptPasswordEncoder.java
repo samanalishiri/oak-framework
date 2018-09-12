@@ -5,15 +5,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by saman on 10/22/2017.
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ *
  */
+
 @Component("bCryptPasswordEncoder")
 public class BCryptPasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {
-        String hashed = BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt(12));
-        return hashed;
+        return BCrypt.hashpw(rawPassword.toString(), BCrypt.gensalt(12));
     }
 
     @Override

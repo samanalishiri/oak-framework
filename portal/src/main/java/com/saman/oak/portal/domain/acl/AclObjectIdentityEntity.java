@@ -7,13 +7,11 @@ package com.saman.oak.portal.domain.acl;
  */
 
 import com.saman.oak.core.domain.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,16 +24,19 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.util.List;
 
-@Getter
-@Setter
-@Accessors(chain = true, fluent = true)
-@javax.persistence.Entity(name = AclObjectIdentityEntity.ENTITY_NAME)
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
+@Entity(name = AclObjectIdentityEntity.ENTITY_NAME)
 @Table(name = AclObjectIdentityEntity.TABLE_NAME, schema = AclObjectIdentityEntity.SCHEMA,
         uniqueConstraints = {@UniqueConstraint(name = "ACL_OBJECT_IDENTITY_UQ_1", columnNames = {"ACL_CLASS", "OBJECT_ID"})})
 public class AclObjectIdentityEntity extends BaseEntity<Long> implements AclObjectIdentityConstant {
 
     @Id
-    @Column(name = TABLE_NAME + ID_SUFFIX, unique = true, nullable = false)
+    @Column(name = ID_COLUMN, unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = TABLE_NAME + GEN_SUFFIX)
     @SequenceGenerator(name = TABLE_NAME + GEN_SUFFIX, sequenceName = TABLE_NAME + SEQ_SUFFIX)
     private Long id;
@@ -44,15 +45,15 @@ public class AclObjectIdentityEntity extends BaseEntity<Long> implements AclObje
     private Long ObjectId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ACL_CLASS", referencedColumnName = AclClassEntity.TABLE_NAME + ID_SUFFIX, nullable = false)
+    @JoinColumn(name = "ACL_CLASS", referencedColumnName = ID_COLUMN, nullable = false)
     private AclClassEntity aclClass;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OWNER", referencedColumnName = AclSidEntity.TABLE_NAME + AclSidEntity.ID_SUFFIX)
+    @JoinColumn(name = "OWNER", referencedColumnName = ID_COLUMN)
     private AclSidEntity owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PARENT", referencedColumnName = AclObjectIdentityEntity.TABLE_NAME + AclObjectIdentityEntity.ID_SUFFIX)
+    @JoinColumn(name = "PARENT", referencedColumnName = ID_COLUMN)
     private AclObjectIdentityEntity parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -69,4 +70,73 @@ public class AclObjectIdentityEntity extends BaseEntity<Long> implements AclObje
     public Long getId() {
         return id;
     }
+
+    public Long getObjectId() {
+        return ObjectId;
+    }
+
+    public AclObjectIdentityEntity setObjectId(Long ObjectId) {
+        this.ObjectId = ObjectId;
+        return this;
+    }
+
+    public AclClassEntity getAclClass() {
+        return aclClass;
+    }
+
+    public AclObjectIdentityEntity setAclClass(AclClassEntity aclClass) {
+        this.aclClass = aclClass;
+        return this;
+    }
+
+    public AclSidEntity getOwner() {
+        return owner;
+    }
+
+    public AclObjectIdentityEntity setOwner(AclSidEntity owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public AclObjectIdentityEntity getParent() {
+        return parent;
+    }
+
+    public AclObjectIdentityEntity setParent(AclObjectIdentityEntity parent) {
+        this.parent = parent;
+        return this;
+    }
+
+    public List<AclObjectIdentityEntity> getChildren() {
+        return children;
+    }
+
+    public AclObjectIdentityEntity setChildren(List<AclObjectIdentityEntity> children) {
+        this.children = children;
+        return this;
+    }
+
+    public Boolean getEntriesInheriting() {
+        return entriesInheriting;
+    }
+
+    public AclObjectIdentityEntity setEntriesInheriting(Boolean entriesInheriting) {
+        this.entriesInheriting = entriesInheriting;
+        return this;
+    }
+
+    public List<AclEntryEntity> getAclEntries() {
+        return aclEntries;
+    }
+
+    public AclObjectIdentityEntity setAclEntries(List<AclEntryEntity> aclEntries) {
+        this.aclEntries = aclEntries;
+        return this;
+    }
+
+    public AclObjectIdentityEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
 }

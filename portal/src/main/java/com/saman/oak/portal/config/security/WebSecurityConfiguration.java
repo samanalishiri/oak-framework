@@ -6,6 +6,12 @@ import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends DefaultWebSecurityExpressionHandler {

@@ -10,7 +10,17 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
+
+import static com.saman.oak.core.utils.StringUtils.notEmpty;
+
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
 
 @Component
 public class LogoutHandlerImpl implements LogoutHandler, ApplicationContextAware {
@@ -24,13 +34,22 @@ public class LogoutHandlerImpl implements LogoutHandler, ApplicationContextAware
 
     @Override
     public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
-        String clientIpAddress = httpServletRequest.getHeader("X-FORWARDED-FOR");
-        if (Objects.isNull(clientIpAddress)) {
-            clientIpAddress = httpServletRequest.getRemoteAddr();
-        }
+        if (Objects.isNull(authentication))
+            return;
 
-        if (Objects.nonNull(authentication)) {
-            applicationContext.publishEvent(new LogoutEvent(authentication));
-        }
+        publishLogoutEvent(authentication, createClientParam(httpServletRequest));
+    }
+
+    private void publishLogoutEvent(Authentication authentication, Map<LogoutEvent.Info, Object> param) {
+        applicationContext.publishEvent(new LogoutEvent(authentication, param));
+    }
+
+    private Map<LogoutEvent.Info, Object> createClientParam(HttpServletRequest httpServletRequest) {
+        Map<LogoutEvent.Info, Object> map = new HashMap<>();
+
+        if (notEmpty(httpServletRequest.getHeader("X-FORWARDED-FOR")))
+            map.put(LogoutEvent.Info.CLIENT_IP_ADDRESS, httpServletRequest.getRemoteAddr());
+
+        return map;
     }
 }

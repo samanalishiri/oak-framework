@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
 @ExposesResourceFor(UserResource.class)
 @Controller
 @RequestMapping(value = UserRestController.USER_URL, produces = {"application/xml", "application/json"})

@@ -1,40 +1,39 @@
 package com.saman.oak.portal.config.security.bean;
 
+import com.saman.oak.core.utils.StringUtils;
 import com.saman.oak.portal.SecurityConstant;
-import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.util.WebUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
+
+import static com.saman.oak.core.utils.CsrfUtils.addCookieToResponse;
+import static com.saman.oak.core.utils.CsrfUtils.getCookie;
+import static com.saman.oak.core.utils.CsrfUtils.getToken;
 
 /**
- * Created by saman on 10/22/2017.
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
  */
-public class CsrfHeaderFilter extends OncePerRequestFilter {
+
+public class CsrfHeaderFilter extends OncePerRequestFilter implements SecurityConstant {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
-        CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
-
-        if (Objects.nonNull(csrf)) {
-
-            Cookie cookie = WebUtils.getCookie(request, SecurityConstant.XSRF_TOKEN);
-            String token = csrf.getToken();
-
-            if (Objects.isNull(cookie) || (Objects.nonNull(token) && !token.equals(cookie.getValue()))) {
-                cookie = new Cookie(SecurityConstant.XSRF_TOKEN, token);
-                cookie.setPath("/");
-                response.addCookie(cookie);
-            }
-        }
-
+        addCookieIfNeeded(request, response);
         filterChain.doFilter(request, response);
     }
+
+    private void addCookieIfNeeded(HttpServletRequest request, HttpServletResponse response) {
+        String token = getToken(request);
+        String cookie = getCookie(request, TOKEN_NAME);
+
+        if (StringUtils.notEqual(token, cookie))
+            addCookieToResponse(response, token, TOKEN_NAME);
+    }
+
 }

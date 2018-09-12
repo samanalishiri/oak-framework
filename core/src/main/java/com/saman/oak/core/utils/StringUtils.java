@@ -17,4 +17,19 @@ public class StringUtils {
         return org.apache.commons.lang3.StringUtils.join(args, separator);
     }
 
+    public static boolean isEmpty(String s) {
+        return (s == null || s.isEmpty());
+    }
+
+    public static boolean notEmpty(String s) {
+        return (s != null && !s.isEmpty());
+    }
+
+    public static boolean isEqual(String s1, String s2) {
+        return notEmpty(s1) && s1.equals(s2);
+    }
+
+    public static boolean notEqual(String s1, String s2) {
+        return isEmpty(s1) || !s1.equals(s2);
+    }
 }

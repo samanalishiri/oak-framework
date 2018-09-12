@@ -8,7 +8,6 @@ import com.saman.oak.portal.domain.user.UserEntity;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +16,12 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
 
 @Component("permissionEvaluator")
 public class PermissionEvaluatorImpl implements PermissionEvaluator, ApplicationContextAware {
@@ -35,19 +40,18 @@ public class PermissionEvaluatorImpl implements PermissionEvaluator, Application
     public boolean hasPermission(Authentication authentication, Object o, Object permission) {
 
         Collection<? extends GrantedAuthority> authorities = ((UserEntity) authentication.getPrincipal()).getAuthorities();
-        boolean hasPermission = authorities.stream().filter(item -> ((AuthorityEntity) item).hasPermission(NumberConverter.convertToLong(permission))).count() > 0;
+        boolean hasPermission = authorities.stream().anyMatch(item -> ((AuthorityEntity) item).hasPermission(NumberConverter.convertToLong(permission)));
 
-        if (!hasPermission) {
-            applicationContext.publishEvent(
-                    new ForbiddenEvent<BaseException>(
-                            new BaseException().code("error.accessDenied")
-                            , new ArrayList<ConfigAttribute>()
-                            , authentication
-                    )
-            );
-        }
+        if (!hasPermission)
+            publishForbiddenEvent(authentication);
 
         return hasPermission;
+    }
+
+    private void publishForbiddenEvent(Authentication authentication) {
+        applicationContext.publishEvent(new ForbiddenEvent<>(new BaseException().setMessage("error.accessDenied")
+                , new ArrayList<>()
+                , authentication));
     }
 
     @Override

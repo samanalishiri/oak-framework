@@ -4,12 +4,10 @@ package com.saman.oak.portal.domain.acl;
  */
 
 import com.saman.oak.core.domain.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,15 +17,18 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import java.util.List;
 
-@Getter
-@Setter
-@Accessors(chain = true, fluent = true)
-@javax.persistence.Entity(name = AclClassEntity.ENTITY_NAME)
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
+@Entity(name = AclClassEntity.ENTITY_NAME)
 @Table(name = AclClassEntity.TABLE_NAME, schema = AclClassEntity.SCHEMA)
 public class AclClassEntity extends BaseEntity<Long> implements AclClassConstant {
 
     @Id
-    @Column(name = TABLE_NAME + ID_SUFFIX, unique = true, nullable = false)
+    @Column(name = ID_COLUMN, unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = TABLE_NAME + GEN_SUFFIX)
     @SequenceGenerator(name = TABLE_NAME + GEN_SUFFIX, sequenceName = TABLE_NAME + SEQ_SUFFIX)
     private Long id;
@@ -42,4 +43,28 @@ public class AclClassEntity extends BaseEntity<Long> implements AclClassConstant
     public Long getId() {
         return id;
     }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public AclClassEntity setClassName(String className) {
+        this.className = className;
+        return this;
+    }
+
+    public List<AclObjectIdentityEntity> getAclClasses() {
+        return aclClasses;
+    }
+
+    public AclClassEntity setAclClasses(List<AclObjectIdentityEntity> aclClasses) {
+        this.aclClasses = aclClasses;
+        return this;
+    }
+
+    public AclClassEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
 }

@@ -7,13 +7,11 @@ package com.saman.oak.portal.domain.acl;
  */
 
 import com.saman.oak.core.domain.BaseEntity;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,16 +22,19 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.util.List;
 
-@Getter
-@Setter
-@Accessors(chain = true, fluent = true)
-@javax.persistence.Entity(name = AclSidEntity.ENTITY_NAME)
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
+@Entity(name = AclSidEntity.ENTITY_NAME)
 @Table(name = AclSidEntity.TABLE_NAME, schema = AclSidEntity.SCHEMA,
         uniqueConstraints = {@UniqueConstraint(name = "ACL_SID_UQ_1", columnNames = {"SID", "PRINCIPAL"})})
 public class AclSidEntity extends BaseEntity<Long> implements AclSidConstant {
 
     @Id
-    @Column(name = TABLE_NAME + ID_SUFFIX, unique = true, nullable = false)
+    @Column(name = ID_COLUMN, unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = TABLE_NAME + GEN_SUFFIX)
     @SequenceGenerator(name = TABLE_NAME + GEN_SUFFIX, sequenceName = TABLE_NAME + SEQ_SUFFIX)
     private Long id;
@@ -41,8 +42,8 @@ public class AclSidEntity extends BaseEntity<Long> implements AclSidConstant {
     @Column(name = "SID", nullable = false)
     private String sid;
 
-    @Column(name = "PRINCIPAL", nullable = false)
     @Type(type = "boolean")
+    @Column(name = "PRINCIPAL", nullable = false)
     private Boolean principal;
 
     @OneToMany(mappedBy = "sid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -55,4 +56,46 @@ public class AclSidEntity extends BaseEntity<Long> implements AclSidConstant {
     public Long getId() {
         return id;
     }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public AclSidEntity setSid(String sid) {
+        this.sid = sid;
+        return this;
+    }
+
+    public Boolean getPrincipal() {
+        return principal;
+    }
+
+    public AclSidEntity setPrincipal(Boolean principal) {
+        this.principal = principal;
+        return this;
+    }
+
+    public List<AclEntryEntity> getAclSids() {
+        return aclSids;
+    }
+
+    public AclSidEntity setAclSids(List<AclEntryEntity> aclSids) {
+        this.aclSids = aclSids;
+        return this;
+    }
+
+    public List<AclObjectIdentityEntity> getAclObjectIdentities() {
+        return aclObjectIdentities;
+    }
+
+    public AclSidEntity setAclObjectIdentities(List<AclObjectIdentityEntity> aclObjectIdentities) {
+        this.aclObjectIdentities = aclObjectIdentities;
+        return this;
+    }
+
+    public AclSidEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
 }

@@ -1,29 +1,30 @@
 package com.saman.oak.portal.config.security.bean;
 
-import com.saman.oak.portal.constant.PathVariable;
-import com.saman.oak.portal.controller.security.LoginController;
-import com.saman.oak.portal.domain.user.UserEntity;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
+import com.saman.oak.portal.SecurityConstant;
+import com.saman.oak.portal.config.security.bean.exception.AccountExpiredExceptionWrapper;
+import com.saman.oak.portal.config.security.bean.exception.AuthenticationCredentialsNotFoundExceptionWrapper;
+import com.saman.oak.portal.config.security.bean.exception.AuthenticationFailureExceptionWrapper;
+import com.saman.oak.portal.config.security.bean.exception.AuthenticationServiceExceptionWrapper;
+import com.saman.oak.portal.config.security.bean.exception.BadCredentialsExceptionWrapper;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureExpiredEvent;
-import org.springframework.security.authentication.event.AuthenticationFailureServiceExceptionEvent;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.saman.oak.core.utils.ServletUtils.forward;
+import static com.saman.oak.core.utils.SpringSecurityObjectFactory.createPrincipal;
+import static com.saman.oak.core.utils.SpringSecurityObjectFactory.getPassword;
 
 /**
  * @author Saman Alishiri
@@ -32,46 +33,25 @@ import java.io.IOException;
  */
 
 @Component
-public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler implements ApplicationEventPublisherAware {
+public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler implements SecurityConstant {
 
-    private ApplicationEventPublisher applicationEventPublisher;
+    Map<Class<?>, AuthenticationFailureExceptionWrapper> map = new HashMap() {{
+        put(AuthenticationServiceException.class, new AuthenticationServiceExceptionWrapper());
+        put(AuthenticationCredentialsNotFoundException.class, new AuthenticationCredentialsNotFoundExceptionWrapper());
+        put(AccountExpiredException.class, new AccountExpiredExceptionWrapper());
+        put(BadCredentialsException.class, new BadCredentialsExceptionWrapper());
+    }};
 
-    private String defaultFailureUrl = LoginController.LOGIN_VIEW + PathVariable.DefaultValue.FAILED;
 
     @Override
-    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
-    }
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
+            throws IOException, ServletException, AuthenticationException {
 
-    @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+        forward(request, response, FAILURE_URL);
 
-        request.getRequestDispatcher(defaultFailureUrl).forward(request, response);
-        String username = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY);
-        String password = request.getParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY);
+        AuthenticationFailureExceptionWrapper exceptionWrapper = map.get(exception.getClass());
+        exceptionWrapper.newInstance(exception, new UsernamePasswordAuthenticationToken(createPrincipal(request), getPassword(request)));
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(new UserEntity().setUsername(username).setPassword(password), null);
-
-        AbstractAuthenticationFailureEvent event;
-
-        if (exception instanceof BadCredentialsException) {
-            event = new AuthenticationFailureBadCredentialsEvent(authentication, exception);
-
-        } else if (exception instanceof AccountExpiredException) {
-            event = new AuthenticationFailureExpiredEvent(authentication, exception);
-
-        } else if (exception instanceof AuthenticationCredentialsNotFoundException) {
-            event = new AuthenticationFailureBadCredentialsEvent(authentication, exception);
-
-        } else if (exception instanceof AuthenticationServiceException) {
-            event = new AuthenticationFailureServiceExceptionEvent(authentication, exception);
-
-        } else {
-            event = new AbstractAuthenticationFailureEvent(authentication, exception) {
-            };
-        }
-
-        applicationEventPublisher.publishEvent(event);
-
+        throw exception;
     }
 }

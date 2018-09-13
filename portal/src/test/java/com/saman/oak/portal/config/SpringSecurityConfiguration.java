@@ -21,7 +21,6 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.test.context.TestPropertySource;
 
 import static com.saman.oak.core.web.Controller.ROOT;
 import static com.saman.oak.core.web.Controller.VIEW;

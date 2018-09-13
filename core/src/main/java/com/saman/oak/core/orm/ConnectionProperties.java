@@ -37,7 +37,7 @@ public enum ConnectionProperties {
         return map.get(key);
     }
 
-    public static ConnectionProperties instanceOfConnectionProperties(String name) {
+    public static ConnectionProperties getConnectionProperties(String name) {
         return ConnectionProperties.valueOf(name.toUpperCase());
     }
 }

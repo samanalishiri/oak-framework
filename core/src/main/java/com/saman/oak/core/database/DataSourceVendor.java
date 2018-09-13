@@ -10,7 +10,7 @@ public enum DataSourceVendor {
     EMBEDDED,;
 
 
-    public static DataSourceVendor instanceOfDSVendor(String name) {
+    public static DataSourceVendor getDSVendor(String name) {
         return DataSourceVendor.valueOf(name.toUpperCase());
     }
 }

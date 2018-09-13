@@ -143,6 +143,15 @@ public class UserEntity extends BaseEntity<Long> implements UserConstant, UserDe
         return enabled;
     }
 
+    @Override
+    public String toString() {
+        return "UserEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     public String getEmail() {
         return email;
     }

@@ -1,30 +1,19 @@
 package com.saman.oak.portal.config.security.bean;
 
 import com.saman.oak.portal.SecurityConstant;
-import com.saman.oak.portal.config.security.bean.exception.AccountExpiredExceptionWrapper;
-import com.saman.oak.portal.config.security.bean.exception.AuthenticationCredentialsNotFoundExceptionWrapper;
-import com.saman.oak.portal.config.security.bean.exception.AuthenticationFailureExceptionWrapper;
-import com.saman.oak.portal.config.security.bean.exception.AuthenticationServiceExceptionWrapper;
-import com.saman.oak.portal.config.security.bean.exception.BadCredentialsExceptionWrapper;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.saman.oak.core.utils.ServletUtils.forward;
-import static com.saman.oak.core.utils.SpringSecurityObjectFactory.createPrincipal;
-import static com.saman.oak.core.utils.SpringSecurityObjectFactory.getPassword;
 
 /**
  * @author Saman Alishiri
@@ -33,25 +22,31 @@ import static com.saman.oak.core.utils.SpringSecurityObjectFactory.getPassword;
  */
 
 @Component
-public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler implements SecurityConstant {
+public class AuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler implements SecurityConstant, ApplicationEventPublisherAware {
 
-    Map<Class<?>, AuthenticationFailureExceptionWrapper> map = new HashMap() {{
-        put(AuthenticationServiceException.class, new AuthenticationServiceExceptionWrapper());
-        put(AuthenticationCredentialsNotFoundException.class, new AuthenticationCredentialsNotFoundExceptionWrapper());
-        put(AccountExpiredException.class, new AccountExpiredExceptionWrapper());
-        put(BadCredentialsException.class, new BadCredentialsExceptionWrapper());
-    }};
+    private final Logger logWriter = LoggerFactory.getLogger(AuthenticationFailureHandler.class);
 
+    private ApplicationEventPublisher applicationEventPublisher;
+    @Autowired
+    private AuthenticationFailureMapper mapper;
+
+    public AuthenticationFailureHandler() {
+    }
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception)
-            throws IOException, ServletException, AuthenticationException {
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
 
-        forward(request, response, FAILURE_URL);
+    @Override
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) {
 
-        AuthenticationFailureExceptionWrapper exceptionWrapper = map.get(exception.getClass());
-        exceptionWrapper.newInstance(exception, new UsernamePasswordAuthenticationToken(createPrincipal(request), getPassword(request)));
+        try {
+            forward(request, response, FAILURE_URL);
+            applicationEventPublisher.publishEvent(mapper.get(exception, request));
 
-        throw exception;
+        } catch (Exception e) {
+            logWriter.info("Authenticate failed");
+        }
     }
 }

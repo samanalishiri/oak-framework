@@ -21,8 +21,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-import static com.saman.oak.core.database.DataSourceVendor.instanceOfDSVendor;
-import static com.saman.oak.core.orm.ConnectionProperties.instanceOfConnectionProperties;
+import static com.saman.oak.core.database.DataSourceVendor.getDSVendor;
+import static com.saman.oak.core.orm.ConnectionProperties.getConnectionProperties;
 
 @Configuration
 @EnableTransactionManagement
@@ -38,11 +38,11 @@ public class HibernateConfiguration {
 
     @Bean(name = "dataSource", destroyMethod = "")
     public DataSource getDataSource() throws NamingException {
-        return DatasourceContext.get(instanceOfDSVendor(env.value("datasource.vendor"))).createDataSource(env.get());
+        return DatasourceContext.get(getDSVendor(env.value("datasource.vendor"))).createDataSource(env.get());
     }
 
     private Properties hibernateProperties() {
-        ConnectionProperties cp = instanceOfConnectionProperties(env.value("hibernate.session_factory.vendor"));
+        ConnectionProperties cp = getConnectionProperties(env.value("hibernate.session_factory.vendor"));
         return PropertiesHelper.NEW()
                 .put("hibernate.dialect", env.value("hibernate.dialect"))
                 .put("hibernate.show_sql", env.value("hibernate.show_sql"))

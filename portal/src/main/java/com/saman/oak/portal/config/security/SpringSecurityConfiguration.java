@@ -1,6 +1,7 @@
 package com.saman.oak.portal.config.security;
 
 import com.saman.oak.core.properties.EnvironmentHelper;
+import com.saman.oak.portal.config.security.bean.AuthenticationFailureHandler;
 import com.saman.oak.portal.config.security.bean.CsrfHeaderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -55,6 +56,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -94,6 +98,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().formLogin()
                 .loginPage(LOGIN_VIEW)
                 .loginProcessingUrl(LOGIN_ACTION)
+                .failureHandler(authenticationFailureHandler)
                 .defaultSuccessUrl(HOME_URL + VIEW)
                 .usernameParameter(USERNAME).passwordParameter(PASSWORD)
                 .permitAll()

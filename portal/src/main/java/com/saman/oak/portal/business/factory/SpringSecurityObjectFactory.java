@@ -1,6 +1,6 @@
-package com.saman.oak.core.utils;
+package com.saman.oak.portal.business.factory;
 
-import org.springframework.security.core.userdetails.User;
+import com.saman.oak.portal.domain.user.UserEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -22,7 +22,7 @@ public final class SpringSecurityObjectFactory {
         String username = getUsername(request);
         String password = getPassword(request);
 
-        return User.builder().username(username).password(password).build();
+        return new UserEntity().setUsername(username).setPassword(password);
     }
 
     public static String getUsername(HttpServletRequest request) {

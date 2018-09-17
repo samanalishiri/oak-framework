@@ -65,9 +65,8 @@ public class SpringDataJpaConfiguration {
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 
-        if (!env.booleanValue("datasource.init_data_file")) {
+        if (!env.booleanValue("datasource.init_data_file"))
             return null;
-        }
 
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
         resourceDatabasePopulator.addScript(new ClassPathResource("/" + env.value("datasource.init_data_file_name", "data.sql")));

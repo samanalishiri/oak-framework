@@ -11,7 +11,8 @@ public enum DatabaseKey implements Valuable<String> {
     PASSWORD("password"),
     URL("url"),
     MAX_IDL("maxIdl"),
-    MIN_IDL("minIdl"),;
+    MIN_IDL("minIdl"),
+    ;
     private final String value;
 
     DatabaseKey(String value) {

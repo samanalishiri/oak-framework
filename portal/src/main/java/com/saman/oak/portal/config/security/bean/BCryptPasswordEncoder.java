@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
  * @author Saman Alishiri
  * @mail samanalishiri@gmail.com
  * @since yyyy-MM-dd
- *
  */
 
 @Component("bCryptPasswordEncoder")

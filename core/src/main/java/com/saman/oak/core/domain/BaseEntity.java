@@ -10,7 +10,6 @@ import java.util.Objects;
  * @author Saman Alishiri
  * @mail samanalishiri@gmail.com
  * @since yyyy-MM-dd
- *
  */
 
 @MappedSuperclass

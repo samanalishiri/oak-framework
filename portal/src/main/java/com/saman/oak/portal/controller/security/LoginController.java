@@ -2,8 +2,9 @@ package com.saman.oak.portal.controller.security;
 
 import com.saman.oak.core.utils.StringUtils;
 import com.saman.oak.core.web.ViewController;
-import com.saman.oak.portal.constant.PathVariable;
+import com.saman.oak.portal.constant.PathParam;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -28,8 +29,8 @@ public class LoginController extends ViewController implements SecurityControlle
         return LOGIN_URL;
     }
 
-    @RequestMapping(value = LOGIN_VIEW + "/{" + PathVariable.FAILED + "}")
-    public String login(@org.springframework.web.bind.annotation.PathVariable(PathVariable.FAILED) boolean failed) {
+    @RequestMapping(value = LOGIN_VIEW + "/{" + PathParam.FAILED + "}")
+    public String login(@PathVariable(PathParam.FAILED) boolean failed) {
         return LOGIN_URL;
     }
 }

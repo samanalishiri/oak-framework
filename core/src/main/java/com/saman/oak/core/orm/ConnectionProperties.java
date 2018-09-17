@@ -21,7 +21,8 @@ public enum ConnectionProperties {
         put("hibernate.connection.min", "hibernate.c3p0.min_size");
         put("hibernate.connection.timeout", "hibernate.c3p0.timeout");
         put("hibernate.connection.max_statements", "hibernate.c3p0.max_statements");
-    }}),;
+    }}),
+    ;
 
     private final Map<String, String> map;
 

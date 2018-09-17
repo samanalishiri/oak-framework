@@ -7,7 +7,8 @@ public enum DataSourceVendor {
     WEBLOGIC,
     JBOSS,
     SPRING,
-    EMBEDDED,;
+    EMBEDDED,
+    ;
 
 
     public static DataSourceVendor getDSVendor(String name) {

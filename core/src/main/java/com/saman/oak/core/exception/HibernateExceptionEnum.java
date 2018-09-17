@@ -3,7 +3,8 @@ package com.saman.oak.core.exception;
 public enum HibernateExceptionEnum {
 
     SESSION_FACTORY_NULL("the session factory is null", "hibernate-1000", ExceptionEnum.NULL),
-    SESSION_NULL("the session is null", "hibernate-1001", ExceptionEnum.NULL),;
+    SESSION_NULL("the session is null", "hibernate-1001", ExceptionEnum.NULL),
+    ;
 
     private final String message;
     private final String code;

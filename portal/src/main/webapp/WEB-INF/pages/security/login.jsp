@@ -20,7 +20,7 @@
             <tbody>
             <tr>
                 <td><label><spring:message code="jsp.login.label.username"/></label></td>
-                <td><input type="text" name="username" id="username" size="20"class="input-lg"></td>
+                <td><input type="text" name="username" id="username" size="20" class="input-lg"></td>
             </tr>
             <tr>
                 <td><label><spring:message code="jsp.login.label.password"/>:</label></td>

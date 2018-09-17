@@ -6,7 +6,7 @@ package com.saman.oak.portal.constant;
  * @since yyyy-MM-dd
  */
 
-public interface PathVariable {
+public interface PathParam {
     String FAILED = "failed";
 
 

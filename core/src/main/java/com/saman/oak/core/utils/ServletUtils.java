@@ -1,7 +1,9 @@
 package com.saman.oak.core.utils;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author Saman Alishiri
@@ -14,7 +16,7 @@ public final class ServletUtils {
     private ServletUtils() {
     }
 
-    public static void forward(HttpServletRequest request, HttpServletResponse response, String url) throws Exception {
+    public static void forward(HttpServletRequest request, HttpServletResponse response, String url) throws ServletException, IOException {
         request.getRequestDispatcher(url).forward(request, response);
 
     }

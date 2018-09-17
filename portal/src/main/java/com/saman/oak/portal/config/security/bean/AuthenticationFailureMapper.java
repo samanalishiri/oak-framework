@@ -1,5 +1,7 @@
 package com.saman.oak.portal.config.security.bean;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -15,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +26,8 @@ import static com.saman.oak.portal.business.factory.SpringSecurityObjectFactory.
 
 @Component
 public class AuthenticationFailureMapper {
+
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationFailureMapper.class);
 
     private final Map<Class<? extends AuthenticationException>, Class<? extends AbstractAuthenticationFailureEvent>> map = new HashMap<>();
 
@@ -38,10 +43,17 @@ public class AuthenticationFailureMapper {
         map.put(InternalAuthenticationServiceException.class, AuthenticationFailureBadCredentialsEvent.class);
     }
 
+    public AbstractAuthenticationFailureEvent get(AuthenticationException exception, HttpServletRequest request) {
 
-    public AbstractAuthenticationFailureEvent get(AuthenticationException exception, HttpServletRequest request) throws Exception {
-        return map.get(exception.getClass())
-                .getConstructor(Authentication.class, AuthenticationException.class)
-                .newInstance(new UsernamePasswordAuthenticationToken(createPrincipal(request), getPassword(request)), exception);
+        try {
+            return map.get(exception.getClass())
+                    .getConstructor(Authentication.class, AuthenticationException.class)
+                    .newInstance(new UsernamePasswordAuthenticationToken(createPrincipal(request), getPassword(request)), exception);
+
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            logger.error(e.getMessage());
+        }
+
+        return null;
     }
 }

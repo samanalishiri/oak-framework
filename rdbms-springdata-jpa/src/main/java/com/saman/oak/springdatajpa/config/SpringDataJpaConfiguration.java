@@ -4,15 +4,20 @@ import com.saman.oak.core.database.DatasourceContext;
 import com.saman.oak.core.orm.ConnectionProperties;
 import com.saman.oak.core.properties.EnvironmentHelper;
 import com.saman.oak.core.properties.PropertiesHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.hateoas.config.EnableEntityLinks;
 import org.springframework.hateoas.config.EnableHypermediaSupport;
+import org.springframework.jdbc.datasource.init.DataSourceInitializer;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -41,6 +46,8 @@ import static com.saman.oak.core.orm.ConnectionProperties.getConnectionPropertie
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class SpringDataJpaConfiguration {
 
+    private final Logger logger = LoggerFactory.getLogger(SpringDataJpaConfiguration.class);
+
     private EnvironmentHelper env;
 
     @Autowired
@@ -51,6 +58,24 @@ public class SpringDataJpaConfiguration {
     @Bean(name = "dataSource", destroyMethod = "")
     public DataSource getDataSource() throws NamingException {
         return DatasourceContext.get(getDSVendor(env.value("datasource.vendor"))).createDataSource(env.get());
+    }
+
+    @Bean
+    public DataSourceInitializer dataSourceInitializer() throws NamingException {
+
+        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+
+        if (!env.booleanValue("datasource.init_data_file")) {
+            return null;
+        }
+
+        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+        resourceDatabasePopulator.addScript(new ClassPathResource("/" + env.value("datasource.init_data_file_name", "data.sql")));
+
+        dataSourceInitializer.setDataSource(getDataSource());
+        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
+
+        return dataSourceInitializer;
     }
 
     private Properties hibernateProperties() {

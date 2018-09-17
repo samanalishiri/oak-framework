@@ -29,6 +29,10 @@ public class EnvironmentHelper {
         return has(key) ? env.getRequiredProperty(key).toUpperCase() : StringUtils.EMPTY;
     }
 
+    public boolean booleanValue(String key) {
+        return has(key) ? env.getRequiredProperty(key, Boolean.TYPE) : false;
+    }
+
     public String value(String key, String def) {
         return has(key) ? env.getRequiredProperty(key) : def;
     }

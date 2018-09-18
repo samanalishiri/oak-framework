@@ -1,0 +1,7 @@
+CREATE DATABASE IF NOT EXISTS sonar
+  CHARACTER SET utf8
+  COLLATE utf8_general_ci;
+CREATE USER IF NOT EXISTS 'sonar'@'localhost'
+  IDENTIFIED BY 'sonar';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP ON sonar.* TO 'sonar'@'localhost';
+FLUSH PRIVILEGES;

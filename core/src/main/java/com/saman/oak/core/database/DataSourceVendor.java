@@ -1,15 +1,18 @@
 package com.saman.oak.core.database;
 
 /**
- * Created by saman on 8/31/2017.
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
  */
+
 public enum DataSourceVendor {
     WEBLOGIC,
     JBOSS,
     SPRING,
     EMBEDDED,
+    TOMCAT,
     ;
-
 
     public static DataSourceVendor getDSVendor(String name) {
         return DataSourceVendor.valueOf(name.toUpperCase());

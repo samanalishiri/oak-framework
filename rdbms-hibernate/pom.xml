@@ -10,12 +10,8 @@
     <groupId>com.saman.oak.hibernate</groupId>
     <artifactId>rdbms-hibernate</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>rdbms-hibernate</name>
+    <name>OAK::Hibernate</name>
     <packaging>jar</packaging>
-    <build>
-        <finalName>rdbms-hibernate</finalName>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>com.saman.oak.core</groupId>
@@ -23,5 +19,7 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
+    <build>
+        <finalName>rdbms-hibernate</finalName>
+    </build>
 </project>

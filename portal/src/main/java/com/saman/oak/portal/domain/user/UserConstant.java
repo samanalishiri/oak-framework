@@ -10,7 +10,7 @@ import com.saman.oak.portal.SecurityConstant;
  */
 
 public interface UserConstant extends SecurityConstant, Constant {
-    String TABLE_NAME = "USERS";
+    String TABLE_NAME = "USER_INFO";
     String ENTITY_NAME = "userEntity";
     String MODEL_NAME = "userModel";
 

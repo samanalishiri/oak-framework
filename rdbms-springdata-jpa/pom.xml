@@ -10,7 +10,7 @@
     <groupId>com.saman.oak.springdatajpa</groupId>
     <artifactId>rdbms-springdata-jpa</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>rdbms-springdata-jpa</name>
+    <name>OAK::Spring Data JPA</name>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>

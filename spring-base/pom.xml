@@ -12,7 +12,7 @@
     <artifactId>spring-base</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>spring-base</name>
+    <name>OAK::Spring Base</name>
     <dependencies>
         <dependency>
             <groupId>com.saman.oak.core</groupId>
@@ -20,5 +20,7 @@
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
-
+    <build>
+        <finalName>spring-base</finalName>
+    </build>
 </project>

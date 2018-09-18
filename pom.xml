@@ -13,6 +13,7 @@
         <module>rdbms-springdata-jpa</module>
         <module>rdbms-hibernate</module>
         <module>spring-base</module>
+        <module>sonar</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -300,10 +301,24 @@
     </build>
     <profiles>
         <profile>
-            <id>sonar</id>
+            <id>sonar-mysql</id>
+            <modules>
+                <module>core</module>
+                <module>portal</module>
+                <module>rdbms-hibernate</module>
+                <module>rdbms-springdata-jpa</module>
+                <module>spring-base</module>
+            </modules>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
+            <properties>
+                <sonar.jdbc.url>jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8
+                </sonar.jdbc.url>
+                <sonar.jdbc.username>sonar</sonar.jdbc.username>
+                <sonar.jdbc.password>sonar</sonar.jdbc.password>
+                <sonar.host.url>http://localhost:9000</sonar.host.url>
+            </properties>
             <build>
                 <pluginManagement>
                     <plugins>
@@ -407,6 +422,19 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>mysql</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>8.0.12</version>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 </project>

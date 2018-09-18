@@ -18,7 +18,6 @@ public final class ServletUtils {
 
     public static void forward(HttpServletRequest request, HttpServletResponse response, String url) throws ServletException, IOException {
         request.getRequestDispatcher(url).forward(request, response);
-
     }
 
 }

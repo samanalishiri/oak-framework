@@ -1,6 +1,8 @@
 package com.saman.oak.portal.business.service.user;
 
+import com.saman.oak.core.validation.ObjectUtils;
 import com.saman.oak.portal.business.dao.user.UserDetailsDao;
+import com.saman.oak.portal.controller.UserNullException;
 import com.saman.oak.portal.domain.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,7 +32,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserEntity loadUserByUsername(String s) throws UsernameNotFoundException {
-        return userDetailsDao.findByUsername(s);
+        UserEntity user = userDetailsDao.findByUsername(s);
+        ObjectUtils.requireNonNull(user, new UserNullException("user.validation.isNull"));
+        return user;
     }
 
     public Optional<UserResource> save(UserEntity entity) {

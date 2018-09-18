@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.hateoas.config.EnableEntityLinks;
@@ -41,7 +42,7 @@ import static com.saman.oak.core.orm.ConnectionProperties.getConnectionPropertie
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.saman.oak")
 @EnableSpringDataWebSupport
-@PropertySource(value = {"resources/database.properties"})
+@PropertySource(value = {"resources/config/db/database.properties"})
 @EnableEntityLinks
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class SpringDataJpaConfiguration {
@@ -65,12 +66,19 @@ public class SpringDataJpaConfiguration {
 
         DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
 
-        if (!env.booleanValue("datasource.init_data_file"))
+        if (!env.booleanValue("datasource.init_sql_file"))
             return null;
 
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-        resourceDatabasePopulator.addScript(new ClassPathResource("/" + env.value("datasource.init_data_file_name", "data.sql")));
+        Resource[] resources = new Resource[2];
 
+        if (env.has("datasource.init_schema_file_name"))
+            resources[0] = new ClassPathResource("/" + env.value("datasource.init_schema_file_name"));
+
+        if (env.has("datasource.init_data_file_name"))
+            resources[1] = new ClassPathResource("/" + env.value("datasource.init_data_file_name"));
+
+        resourceDatabasePopulator.addScripts(resources);
         dataSourceInitializer.setDataSource(getDataSource());
         dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
 

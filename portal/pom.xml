@@ -10,7 +10,7 @@
     <artifactId>portal</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
-    <name>portal</name>
+    <name>OAK::Portal</name>
     <dependencies>
         <dependency>
             <groupId>com.saman.oak.springbase</groupId>

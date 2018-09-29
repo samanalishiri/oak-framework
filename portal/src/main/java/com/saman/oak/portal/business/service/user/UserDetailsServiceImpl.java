@@ -1,5 +1,8 @@
 package com.saman.oak.portal.business.service.user;
 
+import com.saman.oak.core.converter.Converter;
+import com.saman.oak.core.domain.BaseEntity;
+import com.saman.oak.core.model.BaseModel;
 import com.saman.oak.core.validation.ObjectUtils;
 import com.saman.oak.portal.business.dao.user.UserDetailsDao;
 import com.saman.oak.portal.controller.UserNullException;
@@ -19,10 +22,7 @@ import java.util.Optional;
  */
 
 @Service("userDetailsService")
-public class UserDetailsServiceImpl implements UserDetailsService {
-
-    @Autowired
-    private UserDetailsDao userDetailsDao;
+public class UserDetailsServiceImpl implements UserDetailsService, UserService<Long, UserModel, UserResource, UserEntity, UserDetailsDao> {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -30,20 +30,91 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserResourceAssembler userResourceAssembler;
 
+    private UserDetailsDao dao;
+
+    private Converter<UserEntity, UserModel> converter;
+
+    @Override
+    public void setEntityType(Class<? extends BaseEntity> c) {
+
+    }
+
+    @Override
+    public void setModelType(Class<? extends BaseModel> c) {
+
+    }
+
+    @Override
+    public UserDetailsDao getDao() {
+        return dao;
+    }
+
+    @Autowired
+    @Override
+    public void setDao(UserDetailsDao userDetailsDao) {
+        this.dao = userDetailsDao;
+    }
+
+    @Override
+    public Converter<UserEntity, UserModel> getConverter() {
+        return converter;
+    }
+
+    @Override
+    public void setConverter(Converter<UserEntity, UserModel> converter) {
+        this.converter = converter;
+    }
+
     @Override
     public UserEntity loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserEntity user = userDetailsDao.findByUsername(s);
+        UserEntity user = dao.findByUsername(s);
         ObjectUtils.requireNonNull(user, new UserNullException("user.validation.isNull"));
         return user;
     }
 
-    public Optional<UserResource> save(UserEntity entity) {
-        String encodedPassword = passwordEncoder.encode(entity.getPassword());
+    @Override
+    public Optional save(UserModel model) {
+        String encodedPassword = passwordEncoder.encode(model.getPassword());
+        UserEntity entity = converter.convert(model);
         entity.setPassword(encodedPassword);
-        UserEntity user = userDetailsDao.save(entity);
+        UserEntity user = dao.save(entity);
 
         return Optional.of(userResourceAssembler.toResource(user));
     }
 
+    @Override
+    public Optional edit(UserModel model) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional find() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional find(Long key) {
+        return Optional.empty();
+    }
+
+    @Override
+    public void delete(Long key) {
+
+    }
+
+    @Override
+    public void fastDelete(Long key) {
+
+    }
+
+    @Override
+    public Optional find(UserModel model) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<UserResource> findUnique(UserModel userModel) {
+        return Optional.empty();
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.saman.oak.portal.business.dao;
+package com.saman.oak.core.business.dao;
 
 import com.saman.oak.core.domain.BaseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,5 +8,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 import java.io.Serializable;
 
 @NoRepositoryBean
-public interface SpringDataJpaDao<E extends BaseEntity<ID>, ID extends Serializable> extends JpaRepository<E, ID>, CrudRepository<E, ID> {
+public interface SpringDataJpaDao<ID extends Serializable, E extends BaseEntity<ID>> extends JpaRepository<E, ID>, CrudRepository<E, ID> {
 }

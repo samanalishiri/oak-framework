@@ -9,10 +9,10 @@ public abstract class ActionController<E extends BaseModel, R extends BaseModel>
 
 
     public static final String LIST = "/list" + ACTION;
-    public static final String CREATE = "/create" + ACTION;
-    public static final String UPDATE = "/update" + ACTION;
+    public static final String CREATE = "/save" + ACTION;
+    public static final String UPDATE = "/edit" + ACTION;
     public static final String DELETE = "/delete" + ACTION;
-    public static final String READ = "/read" + ACTION;
+    public static final String READ = "/find" + ACTION;
     public static final String SEARCH = "/search" + ACTION;
     public static final String REPORT = "/report" + ACTION;
 

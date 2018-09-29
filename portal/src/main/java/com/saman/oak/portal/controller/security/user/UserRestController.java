@@ -1,9 +1,10 @@
 package com.saman.oak.portal.controller.security.user;
 
 import com.saman.oak.core.web.RestActionController;
-import com.saman.oak.portal.business.service.user.UserDetailsServiceImpl;
+import com.saman.oak.portal.business.service.user.UserModel;
 import com.saman.oak.portal.business.service.user.UserResource;
 import com.saman.oak.portal.business.service.user.UserResourceAssembler;
+import com.saman.oak.portal.business.service.user.UserService;
 import com.saman.oak.portal.controller.security.SecurityController;
 import com.saman.oak.portal.domain.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ import java.util.Optional;
 @ExposesResourceFor(UserResource.class)
 @Controller
 @RequestMapping(value = UserRestController.USER_URL, produces = {"application/xml", "application/json"})
-public class UserRestController extends RestActionController<UserEntity, UserResource> implements SecurityController {
+public class UserRestController extends RestActionController<Long, UserModel, UserEntity, UserResource> implements SecurityController {
 
     public static final String NAME = "userController";
     public static final String BODY = "/user";
@@ -34,42 +35,40 @@ public class UserRestController extends RestActionController<UserEntity, UserRes
     public static final String USER_URL = NAME_SPACE + BODY + PAGE;
 
     @Autowired
-    private UserDetailsServiceImpl userService;
+    private UserService userService;
 
     @Autowired
     private UserResourceAssembler userResourceAssembler;
 
     @Override
-    @RequestMapping(value = CREATE)
-    public HttpEntity<UserResource> create(UserEntity model) {
+    @RequestMapping(value = SAVE)
+    public HttpEntity<UserResource> save(UserModel model) {
         Optional<UserResource> result = userService.save(model);
         return new HttpEntity<>(result.get());
     }
 
     @Override
-    @RequestMapping(value = READ)
-    public HttpEntity<UserResource> read(UserEntity model) {
-//        Optional<UserModel> result = userService.findUnique(model);
-//        return pagedAssembler.toResource(result.intValue(), userResourceAssembler);
-        return null;
+    @RequestMapping(value = FIND)
+    public HttpEntity<UserResource> find(Long id) {
+        Optional<UserResource> result = userService.find(id);
+        return new HttpEntity<>(result.get());
     }
 
     @Override
-    @RequestMapping(value = UPDATE)
-    public HttpEntity<UserResource> update(UserEntity model) {
-//        Optional<UserModel> result = userService.update(model);
-//        return pagedAssembler.toResource(result.intValue(), userResourceAssembler);
-        return null;
+    @RequestMapping(value = EDIT)
+    public HttpEntity<UserResource> edit(UserModel model) {
+        Optional<UserResource> result = userService.edit(model);
+        return new HttpEntity<>(result.get());
     }
 
     @Override
     @RequestMapping(value = DELETE)
-    public void delete(UserEntity model) {
+    public void delete(UserModel model) {
     }
 
     @Override
     @RequestMapping(value = SEARCH)
-    public List<PagedResources<UserResource>> search(UserEntity model) {
+    public List<PagedResources<UserResource>> search(UserModel model) {
         return null;
     }
 }

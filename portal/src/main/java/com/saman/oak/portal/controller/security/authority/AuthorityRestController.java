@@ -1,6 +1,7 @@
 package com.saman.oak.portal.controller.security.authority;
 
 import com.saman.oak.core.web.RestActionController;
+import com.saman.oak.portal.business.service.authority.AuthorityModel;
 import com.saman.oak.portal.business.service.authority.AuthorityResource;
 import com.saman.oak.portal.controller.security.SecurityController;
 import com.saman.oak.portal.domain.authority.AuthorityEntity;
@@ -21,7 +22,7 @@ import java.util.List;
 @ExposesResourceFor(AuthorityResource.class)
 @Controller
 @RequestMapping(value = AuthorityRestController.AUTHORITY_URL, produces = {"application/xml", "application/json"})
-public class AuthorityRestController extends RestActionController<AuthorityEntity, AuthorityResource> implements SecurityController {
+public class AuthorityRestController extends RestActionController<Long, AuthorityModel, AuthorityEntity, AuthorityResource> implements SecurityController {
 
     public static final String NAME = "authorityController";
     public static final String BODY = "/authority";
@@ -29,35 +30,29 @@ public class AuthorityRestController extends RestActionController<AuthorityEntit
 
     public static final String AUTHORITY_URL = NAME_SPACE + BODY + PAGE;
 
+
     @Override
-    @RequestMapping(value = CREATE)
-    public HttpEntity<AuthorityResource> create(AuthorityEntity model) {
+    public HttpEntity<AuthorityResource> save(AuthorityModel model) {
         return null;
     }
 
     @Override
-    @RequestMapping(value = READ)
-    public HttpEntity<AuthorityResource> read(AuthorityEntity model) {
+    public HttpEntity<AuthorityResource> find(Long aLong) {
         return null;
     }
 
     @Override
-    @RequestMapping(value = UPDATE)
-    public HttpEntity<AuthorityResource> update(AuthorityEntity model) {
+    public HttpEntity<AuthorityResource> edit(AuthorityModel model) {
         return null;
     }
 
     @Override
-    @RequestMapping(value = DELETE)
-    public void delete(AuthorityEntity model) {
+    public void delete(AuthorityModel model) {
 
     }
 
     @Override
-    @RequestMapping(value = SEARCH)
-    public List<PagedResources<AuthorityResource>> search(AuthorityEntity model) {
+    public List<PagedResources<AuthorityResource>> search(AuthorityModel model) {
         return null;
     }
-
-
 }

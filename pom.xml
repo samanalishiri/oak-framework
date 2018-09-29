@@ -6,7 +6,7 @@
     <artifactId>oak-framework</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>oak-framework</name>
+    <name>OAK Framework</name>
     <modules>
         <module>core</module>
         <module>portal</module>

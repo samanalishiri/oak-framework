@@ -5,16 +5,16 @@ import org.springframework.http.HttpEntity;
 
 import java.util.List;
 
-public interface RestAction<E, R> {
+public interface RestAction<ID, M, E, R> {
 
-    HttpEntity<R> create(E model);
+    HttpEntity<R> save(M model);
 
-    HttpEntity<R> read(E model);
+    HttpEntity<R> find(ID id);
 
-    HttpEntity<R> update(E model);
+    HttpEntity<R> edit(M model);
 
-    void delete(E model);
+    void delete(M model);
 
-    List<PagedResources<R>> search(E model);
+    List<PagedResources<R>> search(M model);
 
 }

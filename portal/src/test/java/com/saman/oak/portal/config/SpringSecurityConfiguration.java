@@ -36,7 +36,7 @@ import static com.saman.oak.portal.domain.user.UserConstant.USERNAME;
 
 @Configuration
 @EnableWebSecurity
-@PropertySource(value = {"../../../../../../../main/webapp/resources/config/app.properties"})
+@PropertySource(value = {"resources/config/app.properties"})
 public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private EnvironmentHelper env;

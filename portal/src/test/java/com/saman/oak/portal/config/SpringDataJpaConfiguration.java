@@ -37,7 +37,7 @@ import static com.saman.oak.core.orm.ConnectionProperties.getConnectionPropertie
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.saman.oak")
 @EnableSpringDataWebSupport
-@PropertySource(value = {"../../../../../../../main/webapp/resources/config/db/database.properties"})
+@PropertySource(value = {"resources/config/db/database.properties"})
 @EnableEntityLinks
 @EnableHypermediaSupport(type = EnableHypermediaSupport.HypermediaType.HAL)
 public class SpringDataJpaConfiguration {

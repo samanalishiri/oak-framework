@@ -1,7 +1,7 @@
 package com.saman.oak.portal;
 
 import com.saman.oak.portal.config.SpringDataJpaConfiguration;
-import com.saman.oak.portal.config.SpringSecurityConfiguration;
+import com.saman.oak.portal.config.security.SpringSecurityConfiguration;
 import com.saman.oak.portal.config.web.ContextBean;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class PasswordTest {
 
     @Test
     public void generatePassword() {
-        String password = passwordEncoder.encode("password");
+        String password = passwordEncoder.encode("user");
         System.out.println("password = " + password);
     }
 }

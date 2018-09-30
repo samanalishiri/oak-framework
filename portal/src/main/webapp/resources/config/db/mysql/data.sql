@@ -1,4 +1,4 @@
-insert into user_info (ID,
+nsert into user_info (ID,
                        USERNAME,
                        PASSWD,
                        EMAIL,
@@ -28,5 +28,3 @@ values (1,
         'Shiraz',
         '3540',
         '156849');
-
-select * from USER_INFO;

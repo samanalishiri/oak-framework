@@ -4,13 +4,26 @@ import com.saman.oak.portal.config.security.SpringSecurityConfiguration;
 import com.saman.oak.portal.config.web.ContextBean;
 import com.saman.oak.portal.config.web.SpringDispatcher;
 import com.saman.oak.springdatajpa.config.SpringDataJpaConfiguration;
+import org.h2.server.web.WebServlet;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration;
 
 public class ApplicationInit extends AbstractAnnotationConfigDispatcherServletInitializer {
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        super.onStartup(servletContext);
+        ServletRegistration.Dynamic servlet = servletContext
+                .addServlet("h2-console", new WebServlet());
+        servlet.setLoadOnStartup(2);
+        servlet.addMapping("/console/*");
+    }
 
     @Override
     protected Class<?>[] getRootConfigClasses() {

@@ -2,7 +2,6 @@ package com.saman.oak.portal.config.security;
 
 import com.saman.oak.core.properties.EnvironmentHelper;
 import com.saman.oak.portal.config.security.bean.AuthenticationFailureHandler;
-import com.saman.oak.portal.config.security.bean.CsrfHeaderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +18,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
-import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 
@@ -88,7 +86,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/" + env.value("context.url") + "/**").authenticated()
-                .antMatchers("/", "/resources/**", "/webjars/**", "/" + env.value("context.url") + "/", "/" + env.value("context.url")).permitAll()
+                .antMatchers("/", "/resources/**", "/webjars/**", "/" + env.value("context.url") + "/",
+                        "/" + env.value("context.url"), "/console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -111,9 +110,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .and().httpBasic()
                 .and().exceptionHandling()
-                .and().csrf()
-                .csrfTokenRepository(csrfTokenRepository())
-                .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+                .and().csrf().disable()
+//                .csrfTokenRepository(csrfTokenRepository())
+//                .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
         ;
     }
 

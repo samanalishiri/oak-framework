@@ -1,6 +1,7 @@
-package com.saman.oak.portal.config;
+package com.saman.oak.portal.config.security;
 
 import com.saman.oak.core.properties.EnvironmentHelper;
+import com.saman.oak.portal.config.security.bean.AuthenticationFailureHandler;
 import com.saman.oak.portal.config.security.bean.CsrfHeaderFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,6 +35,12 @@ import static com.saman.oak.portal.controller.security.LoginController.LOGOUT_AC
 import static com.saman.oak.portal.domain.user.UserConstant.PASSWORD;
 import static com.saman.oak.portal.domain.user.UserConstant.USERNAME;
 
+/**
+ * @author Saman Alishiri
+ * @mail samanalishiri@gmail.com
+ * @since yyyy-MM-dd
+ */
+
 @Configuration
 @EnableWebSecurity
 @PropertySource(value = {"resources/config/app.properties"})
@@ -48,6 +55,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -78,7 +88,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/" + env.value("context.url") + "/**").authenticated()
-                .antMatchers("/", "/resources/**", "/" + env.value("context.url") + "/", "/" + env.value("context.url")).permitAll()
+                .antMatchers("/", "/resources/**", "/webjars/**", "/" + env.value("context.url") + "/",
+                        "/" + env.value("context.url"), "/console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -88,6 +99,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().formLogin()
                 .loginPage(LOGIN_VIEW)
                 .loginProcessingUrl(LOGIN_ACTION)
+                .failureHandler(authenticationFailureHandler)
                 .defaultSuccessUrl(HOME_URL + VIEW)
                 .usernameParameter(USERNAME).passwordParameter(PASSWORD)
                 .permitAll()
@@ -102,7 +114,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling()
                 .and().csrf()
                 .csrfTokenRepository(csrfTokenRepository())
-                .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class);
+                .and().addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+        ;
     }
 
     private CsrfTokenRepository csrfTokenRepository() {

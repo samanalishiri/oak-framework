@@ -1,4 +1,4 @@
-nsert into user_info (ID,
+insert into user_info (ID,
                        USERNAME,
                        PASSWD,
                        EMAIL,

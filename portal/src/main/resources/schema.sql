@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS security;
+
 create table USER_INFO (
   ID                   bigint       not null,
   NON_EXPIRED          BOOLEAN,

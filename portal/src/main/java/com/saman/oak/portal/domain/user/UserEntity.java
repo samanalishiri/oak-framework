@@ -11,7 +11,6 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.thoughtworks.xstream.converters.extended.EncodedByteArrayConverter;
 import org.hibernate.annotations.Type;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +29,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -109,7 +107,7 @@ public class UserEntity extends BaseEntity<Long> implements UserConstant, UserDe
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public List<AuthorityEntity> getAuthorities() {
         return authorities;
     }
 

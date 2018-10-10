@@ -69,7 +69,7 @@ public class PermissionEntity extends BaseEntity<Long> implements PermissionCons
 
     @JsonIgnore
     @XStreamOmitField
-    @ManyToMany(mappedBy = "permissions", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AuthorityEntity> authorities;
 
     @Override

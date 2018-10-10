@@ -2,6 +2,7 @@ package com.saman.oak.portal.config.security;
 
 import com.saman.oak.core.properties.EnvironmentHelper;
 import com.saman.oak.portal.config.security.bean.AuthenticationFailureHandler;
+import com.saman.oak.portal.config.security.bean.CustomBCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +16,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
@@ -59,7 +59,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return new CustomBCryptPasswordEncoder();
     }
 
     @Bean
@@ -84,6 +84,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+        http.headers().frameOptions().disable();
         http.authorizeRequests()
                 .antMatchers("/" + env.value("context.url") + "/**").authenticated()
                 .antMatchers("/", "/resources/**", "/webjars/**", "/" + env.value("context.url") + "/",

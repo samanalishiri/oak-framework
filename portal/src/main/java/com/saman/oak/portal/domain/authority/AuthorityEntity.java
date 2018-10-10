@@ -75,7 +75,7 @@ public class AuthorityEntity extends BaseEntity<Long> implements AuthorityConsta
 
     @JsonIgnore
     @XStreamOmitField
-    @ManyToMany(mappedBy = "authorities", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserEntity> users;
 
     @JsonIgnore

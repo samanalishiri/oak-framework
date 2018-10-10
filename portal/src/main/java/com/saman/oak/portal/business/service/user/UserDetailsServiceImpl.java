@@ -3,11 +3,10 @@ package com.saman.oak.portal.business.service.user;
 import com.saman.oak.core.converter.Converter;
 import com.saman.oak.core.domain.BaseEntity;
 import com.saman.oak.core.model.BaseModel;
-import com.saman.oak.core.validation.ObjectUtils;
 import com.saman.oak.portal.business.dao.user.UserDetailsDao;
-import com.saman.oak.portal.controller.UserNullException;
 import com.saman.oak.portal.domain.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +24,7 @@ import java.util.Optional;
 public class UserDetailsServiceImpl implements UserDetailsService, UserService<Long, UserModel, UserResource, UserEntity, UserDetailsDao> {
 
     @Autowired
+    @Qualifier("bCryptPasswordEncoder")
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -60,16 +60,17 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService<L
         return converter;
     }
 
+    @Autowired
+    @Qualifier(UserConverter.NAME)
     @Override
     public void setConverter(Converter<UserEntity, UserModel> converter) {
         this.converter = converter;
     }
 
     @Override
-    public UserEntity loadUserByUsername(String s) throws UsernameNotFoundException {
+    public UserModel loadUserByUsername(String s) throws UsernameNotFoundException {
         UserEntity user = dao.findByUsername(s);
-        ObjectUtils.requireNonNull(user, new UserNullException("user.validation.isNull"));
-        return user;
+        return getConverter().convert(user);
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component("bCryptPasswordEncoder")
-public class BCryptPasswordEncoder implements PasswordEncoder {
+public class CustomBCryptPasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(CharSequence rawPassword) {

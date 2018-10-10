@@ -10,6 +10,7 @@ import com.saman.oak.portal.business.service.user.UserModel;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
 
 @XStreamAlias("authorityModel")
 @Component
-public class AuthorityModel extends BaseModel<Long> {
+public class AuthorityModel extends BaseModel<Long> implements GrantedAuthority {
 
     private Long id;
 
@@ -51,55 +52,62 @@ public class AuthorityModel extends BaseModel<Long> {
         return id;
     }
 
-    public void setId(Long id) {
+    public AuthorityModel setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getAuthority() {
         return authority;
     }
 
-    public void setAuthority(String authority) {
+    public AuthorityModel setAuthority(String authority) {
         this.authority = authority;
+        return this;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public AuthorityModel setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public AuthorityModel setEnabled(boolean enabled) {
         this.enabled = enabled;
+        return this;
     }
 
     public AuthorityModel getParent() {
         return parent;
     }
 
-    public void setParent(AuthorityModel parent) {
+    public AuthorityModel setParent(AuthorityModel parent) {
         this.parent = parent;
+        return this;
     }
 
     public List<AuthorityModel> getChildren() {
         return children;
     }
 
-    public void setChildren(List<AuthorityModel> children) {
+    public AuthorityModel setChildren(List<AuthorityModel> children) {
         this.children = children;
+        return this;
     }
 
     public List<UserModel> getUsers() {
         return users;
     }
 
-    public void setUsers(List<UserModel> users) {
+    public AuthorityModel setUsers(List<UserModel> users) {
         this.users = users;
+        return this;
     }
 }

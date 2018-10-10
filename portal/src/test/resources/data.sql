@@ -15,7 +15,7 @@ insert into user_info (ID,
                        ID_CARD_SERIAL)
 values (1,
         'user',
-        '$2a$12$FoEYfy0JoyQzXudv5jF7SOKXFV4VlFkThFWeqRuuOkn8f40xskXhq',
+        '$2a$10$cSYKN5wkEvC2M2dIv5WUf.UFlQoFLWOgelSp3q28/LyYeeRfvEu2O',
         'samanalishiri@gmail.com',
         true,
         true,
@@ -28,21 +28,3 @@ values (1,
         'Shiraz',
         '3540',
         '156849');
-
-
-insert into authority (
-ID,
-AUTHORITY,
-DESCRIPTION,
-ENABLED)
-values (
-1,
-'admin',
-'admin role',
-true );
-
-insert into user_info_authority(
-user_info_id, authority_id)
-values(
-1,1);
-

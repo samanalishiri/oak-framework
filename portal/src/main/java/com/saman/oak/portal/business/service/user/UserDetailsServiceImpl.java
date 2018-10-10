@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ import java.util.Optional;
  */
 
 @Service("userDetailsService")
+@Transactional
 public class UserDetailsServiceImpl implements UserDetailsService, UserService<Long, UserModel, UserResource, UserEntity, UserDetailsDao> {
 
     @Autowired
@@ -68,6 +70,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService<L
     }
 
     @Override
+    @Transactional(readOnly = true)
     public UserModel loadUserByUsername(String s) throws UsernameNotFoundException {
         UserEntity user = dao.findByUsername(s);
         return getConverter().convert(user);

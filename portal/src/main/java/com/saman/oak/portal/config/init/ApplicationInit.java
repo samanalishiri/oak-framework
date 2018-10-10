@@ -10,6 +10,7 @@ import org.springframework.web.multipart.support.MultipartFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
@@ -22,7 +23,7 @@ public class ApplicationInit extends AbstractAnnotationConfigDispatcherServletIn
         ServletRegistration.Dynamic servlet = servletContext
                 .addServlet("h2-console", new WebServlet());
         servlet.setLoadOnStartup(2);
-        servlet.addMapping("/console/*");
+        servlet.addMapping("/h2-console/*");
     }
 
     @Override
@@ -51,17 +52,14 @@ public class ApplicationInit extends AbstractAnnotationConfigDispatcherServletIn
         return new Filter[]{characterEncodingFilter, multipartFilter};
     }
 
-  /*  @Override
+    @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         registration.setMultipartConfig(createmultipartConfigElement());
     }
-*/
-   /* public MultipartConfigElement createmultipartConfigElement(){
-        
-        MultipartConfigElement multipartConfigElement = new MultipartConfigElement("", (1024*1024*10),(1024*1024*10),0);
 
-        return multipartConfigElement;
-    }*/
+    public MultipartConfigElement createmultipartConfigElement() {
+        return new MultipartConfigElement("", (1024 * 1024 * 10), (1024 * 1024 * 10), 0);
+    }
 
 
 }

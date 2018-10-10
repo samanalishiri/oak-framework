@@ -87,8 +87,10 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable();
         http.authorizeRequests()
                 .antMatchers("/" + env.value("context.url") + "/**").authenticated()
-                .antMatchers("/", "/resources/**", "/webjars/**", "/" + env.value("context.url") + "/",
-                        "/" + env.value("context.url"), "/console/**").permitAll()
+                .antMatchers("/", "/resources/**", "/webjars/**"
+                        , "/" + env.value("context.url") + "/"
+                        , "/" + env.value("context.url")
+                        , "/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)

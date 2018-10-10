@@ -54,10 +54,10 @@ public class ApplicationInit extends AbstractAnnotationConfigDispatcherServletIn
 
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        registration.setMultipartConfig(createmultipartConfigElement());
+        registration.setMultipartConfig(createMultipartConfigElement());
     }
 
-    public MultipartConfigElement createmultipartConfigElement() {
+    public MultipartConfigElement createMultipartConfigElement() {
         return new MultipartConfigElement("", (1024 * 1024 * 10), (1024 * 1024 * 10), 0);
     }
 

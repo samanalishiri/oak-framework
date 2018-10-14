@@ -8,27 +8,29 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><spring:message code="app.title"/></title>
     <link rel="stylesheet" type="text/css" href="<c:url value="/webjars/bootstrap/3.3.6/css/bootstrap.min.css"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/font.css"/>"/>
-    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/public.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/script/css/font.css"/>"/>
+    <link rel="stylesheet" type="text/css" href="<c:url value="/resources/script/css/public.css"/>"/>
 
 </head>
-<body>
-<div class="container center col-lg-12">
+<body class="width-full center">
+<div style="display: inline-block; width: 25%; border: thin black solid">
     <form:form>
         <table>
-            <caption><spring:message code="jsp.login.title"/></caption>
+            <caption class="center"><spring:message code="jsp.login.title"/></caption>
             <tbody>
             <tr>
-                <td><label><spring:message code="jsp.login.label.username"/></label></td>
-                <td><input type="text" name="username" id="username" size="20" class="input-lg"></td>
+                <td>
+                    <input type="text" name="username" id="username" size="20" class="input-lg" placeholder="<spring:message code="jsp.login.label.username"/>">
+                </td>
             </tr>
             <tr>
-                <td><label><spring:message code="jsp.login.label.password"/>:</label></td>
-                <td><input type="password" name="password" id="password" size="20" class="input-lg"></td>
+                <td>
+                    <input type="password" name="password" id="password" size="20" class="input-lg" placeholder="<spring:message code="jsp.login.label.password"/>">
+                </td>
             </tr>
             <tr>
                 <td colspan="2" class="center">
-                    <button type="submit" formmethod="post" formaction="<spring:url value="/security/login.action"/>" class="btn btn-default">
+                    <button type="submit" formmethod="post" formaction="<spring:url value="/security/login.action"/>" class="btn btn-info">
                         <span><spring:message code="jsp.login.button"/></span>
                     </button>
                 </td>

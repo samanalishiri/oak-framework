@@ -30,6 +30,6 @@ public class HomeController extends ViewController {
     public String view() {
         homeContent.setTitle("jsp.home.title");
         homeContent.setUrl("blank.jsp");
-        return ControllerUtil.forward(HOME_URL);
+        return HOME_URL;
     }
 }

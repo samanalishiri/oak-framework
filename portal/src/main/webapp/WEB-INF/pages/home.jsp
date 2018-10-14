@@ -15,7 +15,7 @@
 <body>
 <form:form>
     <div class="width-full left">
-        <button type="submit" formmethod="post" formaction="<spring:url value="/security/logout.action"/>">
+        <button type="submit" formmethod="post" formaction="<spring:url value="/security/logout.action"/>" class="btn btn-danger">
             <span><spring:message code="jsp.home.button.logout"/></span>
         </button>
     </div>

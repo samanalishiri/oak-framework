@@ -7,14 +7,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
+ * @author Saman Alishiri, samanalishiri@gmail.com
  * @since yyyy-MM-dd
  */
 
-public final class SpringSecurityObjectFactory {
+public final class PrincipalFactory {
 
-    private SpringSecurityObjectFactory() {
+    private PrincipalFactory() {
     }
 
     public static UserDetails createPrincipal(HttpServletRequest request) {

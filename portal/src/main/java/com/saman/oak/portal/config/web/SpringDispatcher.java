@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
-import org.springframework.http.CacheControl;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.LocaleResolver;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Saman Alishiri
@@ -43,7 +41,8 @@ public class SpringDispatcher extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**", "/webjars/**")
                 .addResourceLocations("/resources/", "/webjars/")
-                .setCacheControl(CacheControl.maxAge(1, TimeUnit.HOURS));
+//                .setCacheControl(CacheControl.maxAge(1, TimeUnit.HOURS))
+        ;
     }
 
     @Bean(name = "messageSource")
@@ -57,7 +56,7 @@ public class SpringDispatcher extends WebMvcConfigurerAdapter {
     @Bean
     public LocaleResolver localeResolver() {
         CookieLocaleResolver resolver = new CookieLocaleResolver();
-        resolver.setDefaultLocale(new Locale("fa"));
+        resolver.setDefaultLocale(new Locale("en"));
         return resolver;
     }
 

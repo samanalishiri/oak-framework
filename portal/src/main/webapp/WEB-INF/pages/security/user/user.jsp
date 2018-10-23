@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/public.css"/>"/>
 </head>
 <body>
-<div class="center width-full">
+<div class="center width-870">
 </div>
 </body>
 </html>

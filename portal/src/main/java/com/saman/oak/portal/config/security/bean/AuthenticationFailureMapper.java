@@ -21,8 +21,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.saman.oak.portal.business.factory.SpringSecurityObjectFactory.createPrincipal;
-import static com.saman.oak.portal.business.factory.SpringSecurityObjectFactory.getPassword;
+import static com.saman.oak.portal.business.factory.PrincipalFactory.createPrincipal;
+import static com.saman.oak.portal.business.factory.PrincipalFactory.getPassword;
 
 @Component
 public class AuthenticationFailureMapper {

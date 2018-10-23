@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -73,6 +74,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService<L
     @Transactional(readOnly = true)
     public UserModel loadUserByUsername(String s) throws UsernameNotFoundException {
         UserEntity user = dao.findByUsername(s);
+        Objects.requireNonNull(user, "");
         return getConverter().convert(user);
     }
 

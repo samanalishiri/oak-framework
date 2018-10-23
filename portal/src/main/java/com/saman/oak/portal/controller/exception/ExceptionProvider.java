@@ -1,6 +1,6 @@
 package com.saman.oak.portal.controller.exception;
 
-import com.saman.oak.portal.controller.UserNullException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionProvider {
 
-    @ExceptionHandler(UserNullException.class)
-    public void userNull(UserNullException e) {
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public void userNull(UsernameNotFoundException e) {
+        System.out.println("e.getMessage() = " + e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public void abc(IllegalArgumentException e) {
         System.out.println("e.getMessage() = " + e.getMessage());
     }
 

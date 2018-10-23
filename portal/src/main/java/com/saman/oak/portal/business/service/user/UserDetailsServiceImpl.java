@@ -4,6 +4,7 @@ import com.saman.oak.core.converter.Converter;
 import com.saman.oak.core.domain.BaseEntity;
 import com.saman.oak.core.model.BaseModel;
 import com.saman.oak.portal.business.dao.user.UserDetailsDao;
+import com.saman.oak.portal.business.exception.UserNotFoundException;
 import com.saman.oak.portal.domain.user.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -73,9 +73,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService<L
     @Override
     @Transactional(readOnly = true)
     public UserModel loadUserByUsername(String s) throws UsernameNotFoundException {
-        UserEntity user = dao.findByUsername(s);
-        Objects.requireNonNull(user, "");
-        return getConverter().convert(user);
+        return getConverter().convert(dao.findByUsername(s).orElseThrow(UserNotFoundException::new));
     }
 
     @Override

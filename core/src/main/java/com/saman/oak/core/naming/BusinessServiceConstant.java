@@ -5,4 +5,5 @@ package com.saman.oak.core.naming;
  */
 public interface BusinessServiceConstant {
     String SPRING_SERVICE = "springBaseService";
+    String RESOURCEABLE_SPRING_SERVICE = "resourceableSpringBaseService";
 }

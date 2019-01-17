@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Created by Administrator on 9/29/2017.
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
 public abstract class BaseModel<ID extends Serializable> implements Identifiable<ID>, Comparable<BaseModel>, Serializable {
 

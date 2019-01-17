@@ -1,23 +1,17 @@
 package com.saman.oak.portal.controller.security.authority;
 
 import com.saman.oak.core.web.ViewController;
-import com.saman.oak.portal.business.service.authority.AuthorityResource;
 import com.saman.oak.portal.controller.security.SecurityController;
-import org.springframework.hateoas.ExposesResourceFor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import static com.saman.oak.portal.controller.HomeController.HOME_URL;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
-@ExposesResourceFor(AuthorityResource.class)
 @Controller
-@RequestMapping(value = AuthorityViewController.AUTHORITY_URL, produces = {"application/xml", "application/json"})
+@RequestMapping(value = AuthorityViewController.AUTHORITY_URL)
 public class AuthorityViewController extends ViewController implements SecurityController {
 
     public static final String NAME = "authorityController";

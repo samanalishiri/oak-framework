@@ -6,22 +6,23 @@ import com.saman.oak.core.utils.CollectionUtils;
 import com.saman.oak.core.utils.GenericUtils;
 import com.saman.oak.core.validation.ObjectUtils;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.saman.oak.core.utils.CollectionUtils.EMPTY_LIST;
+import static com.saman.oak.core.utils.CollectionUtils.createArray;
 
 /**
- * Created by saman on 10/22/2017.
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
 public abstract class Converter<E extends BaseEntity, M extends BaseModel> {
 
     public static final int LIGHT_DEEP = -1;
     public static final int EXIT = 0;
 
-    private final Class<? extends BaseModel> modelType = (Class<? extends BaseModel>) GenericUtils.extract(this.getClass(), 0);
+    private final Class<M> modelType = (Class<M>) GenericUtils.extract(this.getClass(), 1);
+    private final Class<E> entityType = (Class<E>) GenericUtils.extract(this.getClass(), 0);
 
     public void before(E e, int deep, String... relations) {
         ObjectUtils.requireNonNull(e, new NullPointerException(e.getClass().getSimpleName() + " is null"));
@@ -54,8 +55,8 @@ public abstract class Converter<E extends BaseEntity, M extends BaseModel> {
 
     public M[] convert(E[] entities, int deep, String... relations) {
         return CollectionUtils.isEmpty(entities)
-                ? (M[]) Array.newInstance(modelType, 0)
-                : Arrays.stream(entities).map(e -> convert(e, deep, relations)).toArray(size -> (M[]) Array.newInstance(modelType, size));
+                ? createArray(0, modelType)
+                : Arrays.stream(entities).map(e -> convert(e, deep, relations)).toArray(size -> createArray(size, modelType));
     }
 
     public void before(M m, int deep, String... relations) {
@@ -93,8 +94,8 @@ public abstract class Converter<E extends BaseEntity, M extends BaseModel> {
 
     public E[] convert(M[] models, int deep, String... relations) {
         return CollectionUtils.isEmpty(models)
-                ? (E[]) Array.newInstance(modelType, 0)
-                : Arrays.stream(models).map(e -> convert(e, deep, relations)).toArray(size -> (E[]) Array.newInstance(modelType, size));
+                ? createArray(0, entityType)
+                : Arrays.stream(models).map(e -> convert(e, deep, relations)).toArray(size -> createArray(size, entityType));
     }
 
     public abstract E newEntity();

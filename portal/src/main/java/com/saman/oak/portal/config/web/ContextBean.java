@@ -4,11 +4,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 @Configuration
 @ComponentScan(value = {"com.saman.oak"})
 public class ContextBean {

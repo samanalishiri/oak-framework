@@ -4,7 +4,7 @@ import com.saman.oak.core.utils.StringUtils;
 import org.springframework.core.env.Environment;
 
 /**
- * Created by saman on 9/21/2017.
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
 public class EnvironmentHelper {
     private final Environment env;

@@ -4,16 +4,13 @@ import com.saman.oak.portal.constant.PathParam;
 import com.saman.oak.portal.controller.security.LoginController;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 public interface SecurityConstant {
 
     int SESSION_MAX = 1;
 
-    String SCHEMA = "SECURITY";
+    String SCHEMA = "OAK";
     String COOKIE = "JSESSIONID";
     String CSRF_HEADER_NAME = "X-XSRF-TOKEN";
     String TOKEN_NAME = "XSRF-TOKEN";

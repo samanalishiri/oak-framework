@@ -42,8 +42,8 @@ public class UserRestController extends RestActionController<Long, UserModel, Us
 
     @Override
     @RequestMapping(value = SAVE)
-    public HttpEntity<UserResource> save(UserModel model) {
-        Optional<UserResource> result = userService.save(model);
+    public HttpEntity<Long> save(UserModel model) {
+        Optional<Long> result = userService.save(model);
         return new HttpEntity<>(result.get());
     }
 
@@ -56,9 +56,8 @@ public class UserRestController extends RestActionController<Long, UserModel, Us
 
     @Override
     @RequestMapping(value = EDIT)
-    public HttpEntity<UserResource> edit(UserModel model) {
-        Optional<UserResource> result = userService.edit(model);
-        return new HttpEntity<>(result.get());
+    public void edit(UserModel model) {
+        userService.edit(model);
     }
 
     @Override

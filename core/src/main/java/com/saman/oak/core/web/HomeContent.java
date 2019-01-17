@@ -1,9 +1,7 @@
 package com.saman.oak.core.web;
 
-import lombok.Data;
 import org.springframework.stereotype.Component;
 
-@Data
 @Component(HomeContent.NAME)
 public class HomeContent {
 
@@ -17,4 +15,19 @@ public class HomeContent {
         this.title = new String();
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

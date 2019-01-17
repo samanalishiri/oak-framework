@@ -5,6 +5,7 @@ import com.saman.oak.portal.config.security.bean.AuthenticationFailureHandler;
 import com.saman.oak.portal.config.security.bean.CsrfHeaderFilter;
 import com.saman.oak.portal.config.security.bean.CustomBCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -36,11 +37,8 @@ import static com.saman.oak.portal.domain.user.UserConstant.PASSWORD;
 import static com.saman.oak.portal.domain.user.UserConstant.USERNAME;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 @Configuration
 @EnableWebSecurity
 @PropertySource(value = {"resources/config/app.properties"})
@@ -54,6 +52,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Autowired
+    @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
     @Autowired

@@ -34,9 +34,8 @@ import static com.saman.oak.core.database.DataSourceVendor.getDSVendor;
 import static com.saman.oak.core.orm.ConnectionProperties.getConnectionProperties;
 
 /**
- * Created by saman on 11/29/2017.
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.saman.oak")
@@ -57,7 +56,7 @@ public class SpringDataJpaConfiguration {
 
     @Bean(name = "dataSource", destroyMethod = "")
     public DataSource getDataSource() throws NamingException {
-        return DatasourceContext.get(getDSVendor(env.value("datasource.vendor"))).createDataSource(env.get());
+        return DatasourceContext.get(getDSVendor(env.value("datasource.vendor"))).create(env.get());
     }
 
     @Bean

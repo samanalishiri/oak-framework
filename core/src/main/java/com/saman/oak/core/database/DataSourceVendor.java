@@ -1,9 +1,7 @@
 package com.saman.oak.core.database;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
 
 public enum DataSourceVendor {

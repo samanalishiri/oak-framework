@@ -14,7 +14,7 @@ import java.io.Serializable;
 import java.util.Optional;
 
 /**
- * Created by Administrator on 9/29/2017.
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
 @Service(BusinessServiceConstant.SPRING_SERVICE)
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -22,6 +22,7 @@ public class SpringService<ID extends Serializable, M extends BaseModel<ID>, E e
         implements CompleteService<ID, M, E, D> {
 
     private Class<? extends BaseEntity> entity;
+
     private Class<? extends BaseModel> model;
 
     private D dao;
@@ -79,7 +80,7 @@ public class SpringService<ID extends Serializable, M extends BaseModel<ID>, E e
     }
 
     @Override
-    public Optional<M> findUnique(M m) {
+    public Optional<M> findOne(M m) {
         return null;
     }
 

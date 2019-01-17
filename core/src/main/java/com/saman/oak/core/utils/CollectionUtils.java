@@ -1,5 +1,6 @@
 package com.saman.oak.core.utils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -45,12 +46,16 @@ public class CollectionUtils {
         return Objects.nonNull(objects) && objects.length >= MIN_SIZE;
     }
 
-    public static boolean isEmpty(List list) {
-        return Objects.isNull(list) || list.isEmpty();
-    }
-
     public static String[] subFields(List<String> list, String field) {
         return list.stream().filter(s -> s.startsWith(field + ".")).map(s -> s.replace(field + ".", StringUtils.EMPTY)).toArray(String[]::new);
+    }
+
+    public static <E> E[] createArray(int size, Class<E> c) {
+        return (E[]) Array.newInstance(c, size);
+    }
+
+    public static boolean isEmpty(List list) {
+        return Objects.isNull(list) || list.isEmpty();
     }
 
     public static boolean isEmpty(Object... array) {

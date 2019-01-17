@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 public class ApacheTomcatDataSource implements SpringDataSource {
     @Override
-    public DataSource createDataSource(Environment properties) throws NamingException {
+    public DataSource create(Environment properties) throws NamingException {
         return (DataSource) new JndiTemplate().lookup(properties.getProperty("datasource.jndi"));
     }
 }

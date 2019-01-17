@@ -32,7 +32,7 @@ public class AuthorityRestController extends RestActionController<Long, Authorit
 
 
     @Override
-    public HttpEntity<AuthorityResource> save(AuthorityModel model) {
+    public HttpEntity<Long> save(AuthorityModel model) {
         return null;
     }
 
@@ -42,8 +42,8 @@ public class AuthorityRestController extends RestActionController<Long, Authorit
     }
 
     @Override
-    public HttpEntity<AuthorityResource> edit(AuthorityModel model) {
-        return null;
+    public void edit(AuthorityModel model) {
+
     }
 
     @Override

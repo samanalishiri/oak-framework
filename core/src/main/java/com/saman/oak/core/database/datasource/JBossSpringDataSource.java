@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 public class JBossSpringDataSource implements SpringDataSource {
     @Override
-    public DataSource createDataSource(Environment properties) throws NamingException {
+    public DataSource create(Environment properties) throws NamingException {
         JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
         dataSourceLookup.setResourceRef(true);
         return dataSourceLookup.getDataSource(properties.getRequiredProperty("datasource.jndi"));

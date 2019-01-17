@@ -13,11 +13,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 @XStreamAlias("userModel")
 @Component
 public class UserModel extends BaseModel<Long> implements UserDetails {

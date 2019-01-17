@@ -18,11 +18,8 @@ import org.springframework.web.servlet.view.JstlView;
 import java.util.Locale;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 @Configuration
 @EnableWebMvc
 @ComponentScan({"com.saman.oak.portal.controller"})

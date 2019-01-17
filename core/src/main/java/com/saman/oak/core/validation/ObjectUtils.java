@@ -1,11 +1,8 @@
 package com.saman.oak.core.validation;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 public final class ObjectUtils {
 
     private ObjectUtils() {

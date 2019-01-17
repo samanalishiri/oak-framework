@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 public class EmbeddedSpringDataSource implements SpringDataSource {
     @Override
-    public DataSource createDataSource(Environment properties) throws NamingException {
+    public DataSource create(Environment properties) throws NamingException {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder.setType(EmbeddedDatabaseType.valueOf(properties.getRequiredProperty("embedded.database.type"))).build();
     }

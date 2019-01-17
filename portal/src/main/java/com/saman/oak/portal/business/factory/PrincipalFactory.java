@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
- * @since yyyy-MM-dd
  */
 
 public final class PrincipalFactory {

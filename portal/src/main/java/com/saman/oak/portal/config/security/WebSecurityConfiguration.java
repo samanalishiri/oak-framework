@@ -7,11 +7,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends DefaultWebSecurityExpressionHandler {

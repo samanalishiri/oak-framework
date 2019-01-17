@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Optional;
 
 /**
- * Created by Administrator on 9/29/2017.
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
 public abstract class ServiceProxy<ID extends Serializable, M extends BaseModel<ID>, E extends BaseEntity<ID>, D extends CompleteDao<ID, E>>
         implements CompleteService<ID, M, E, D> {
@@ -52,8 +52,8 @@ public abstract class ServiceProxy<ID extends Serializable, M extends BaseModel<
     }
 
     @Override
-    public Optional<M> findUnique(M m) {
-        return service.findUnique(m);
+    public Optional<M> findOne(M m) {
+        return service.findOne(m);
     }
 
     @Override

@@ -57,7 +57,7 @@ public class SpringDataJpaConfiguration {
 
     @Bean(name = "dataSource", destroyMethod = "")
     public DataSource getDataSource() throws NamingException {
-        return DatasourceContext.get(getDSVendor(env.value("datasource.vendor"))).createDataSource(env.get());
+        return DatasourceContext.get(getDSVendor(env.value("datasource.vendor"))).create(env.get());
     }
 
     @Bean

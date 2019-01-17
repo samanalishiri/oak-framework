@@ -13,5 +13,5 @@ import java.util.Optional;
 public interface SearchService<ID extends Serializable, M extends BaseModel<ID>, E extends BaseEntity<ID>, D extends CompleteDao<ID, E>> {
     Optional<M[]> find(M m);
 
-    Optional<M> findUnique(M m);
+    Optional<M> findOne(M m);
 }

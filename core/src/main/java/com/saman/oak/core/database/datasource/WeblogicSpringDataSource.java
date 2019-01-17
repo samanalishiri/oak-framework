@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 public class WeblogicSpringDataSource implements SpringDataSource {
     @Override
-    public DataSource createDataSource(Environment properties) throws NamingException {
+    public DataSource create(Environment properties) throws NamingException {
         JndiObjectFactoryBean factoryBean = new JndiObjectFactoryBean();
         factoryBean.setJndiName(properties.getRequiredProperty("datasource.jndi"));
         factoryBean.afterPropertiesSet();

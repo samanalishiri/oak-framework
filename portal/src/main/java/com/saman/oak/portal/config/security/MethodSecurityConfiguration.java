@@ -10,11 +10,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 @Configuration
 @EnableGlobalMethodSecurity(jsr250Enabled = true, prePostEnabled = true)
 public class MethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {

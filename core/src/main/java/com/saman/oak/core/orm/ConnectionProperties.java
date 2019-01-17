@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author Saman Alishiri, samanalishiri@gmail.com
+ */
 public enum ConnectionProperties {
 
     APACHE_DHCP(new HashMap() {{

@@ -6,5 +6,5 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public interface SpringDataSource {
-    DataSource createDataSource(Environment properties) throws NamingException;
+    DataSource create(Environment properties) throws NamingException;
 }

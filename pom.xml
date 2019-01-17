@@ -345,7 +345,7 @@
             </reporting>
         </profile>
         <profile>
-            <id>development</id>
+            <id>test</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -426,7 +426,7 @@
         <profile>
             <id>mysql</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <dependencies>
                 <dependency>

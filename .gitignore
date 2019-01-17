@@ -3,4 +3,4 @@ target
 *.iml
 .scannerwork 
 *.log 
-git-setup.bat 
+*.bat

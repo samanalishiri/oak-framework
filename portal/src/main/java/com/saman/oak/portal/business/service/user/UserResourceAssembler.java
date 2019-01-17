@@ -6,11 +6,12 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by saman on 11/28/2017.
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-@Component
+@Component(UserResourceAssembler.NAME)
 public class UserResourceAssembler extends ResourceAssemblerSupport<UserEntity, UserResource> {
 
+    public static final String NAME = "serResourceAssembler";
 //    @Autowired
 //    private EntityLinks entityLinks;
 

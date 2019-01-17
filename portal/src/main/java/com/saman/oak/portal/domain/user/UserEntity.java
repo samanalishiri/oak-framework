@@ -32,11 +32,8 @@ import javax.persistence.Table;
 import java.util.List;
 
 /**
- * @author Saman Alishiri
- * @mail samanalishiri@gmail.com
- * @since yyyy-MM-dd
+ * @author Saman Alishiri, samanalishiri@gmail.com
  */
-
 @Entity(name = UserEntity.ENTITY_NAME)
 @Table(name = UserEntity.TABLE_NAME, schema = UserEntity.SCHEMA)
 @XStreamAlias(UserEntity.ENTITY_NAME)

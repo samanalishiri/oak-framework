@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 
 public class ApacheSpringDataSource implements SpringDataSource {
     @Override
-    public DataSource createDataSource(Environment properties) throws NamingException {
+    public DataSource create(Environment properties) throws NamingException {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName(properties.getRequiredProperty("jdbc.driver"));
         dataSource.setUrl(properties.getRequiredProperty("jdbc.url"));

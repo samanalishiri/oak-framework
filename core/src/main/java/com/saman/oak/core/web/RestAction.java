@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface RestAction<ID, M, E, R> {
 
-    HttpEntity<R> save(M model);
+    HttpEntity<ID> save(M model);
 
     HttpEntity<R> find(ID id);
 
-    HttpEntity<R> edit(M model);
+    void edit(M model);
 
     void delete(M model);
 

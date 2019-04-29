@@ -25,6 +25,10 @@ public class EnvironmentHelper {
         return has(key) ? env.getRequiredProperty(key) : StringUtils.EMPTY;
     }
 
+    public String[] values(String key) {
+        return has(key) ? env.getRequiredProperty(key).split(",") : new String[0];
+    }
+
     public String uppercase(String key) {
         return has(key) ? env.getRequiredProperty(key).toUpperCase() : StringUtils.EMPTY;
     }

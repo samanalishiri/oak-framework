@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
-public enum ConnectionProperties {
+public enum HibernateConnectionProperties {
 
     APACHE_DHCP(new HashMap() {{
         put("hibernate.connection.initial", "hibernate.dbcp.initialSize");
@@ -29,7 +29,7 @@ public enum ConnectionProperties {
 
     private final Map<String, String> map;
 
-    ConnectionProperties(Map<String, String> map) {
+    HibernateConnectionProperties(Map<String, String> map) {
         this.map = map;
     }
 
@@ -41,7 +41,7 @@ public enum ConnectionProperties {
         return map.get(key);
     }
 
-    public static ConnectionProperties getConnectionProperties(String name) {
-        return ConnectionProperties.valueOf(name.toUpperCase());
+    public static HibernateConnectionProperties getConnectionProperties(String name) {
+        return HibernateConnectionProperties.valueOf(name.toUpperCase());
     }
 }

@@ -1,9 +1,9 @@
 package com.saman.oak.portal.config;
 
 import com.saman.oak.core.database.DatasourceContext;
-import com.saman.oak.core.orm.ConnectionProperties;
+import com.saman.oak.core.orm.HibernateConnectionProperties;
 import com.saman.oak.core.properties.EnvironmentHelper;
-import com.saman.oak.core.properties.PropertiesHelper;
+import com.saman.oak.core.properties.PropertiesBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 import static com.saman.oak.core.database.DataSourceVendor.getDSVendor;
-import static com.saman.oak.core.orm.ConnectionProperties.getConnectionProperties;
+import static com.saman.oak.core.orm.HibernateConnectionProperties.getConnectionProperties;
 
 /**
  * Created by saman on 11/29/2017.
@@ -83,8 +83,8 @@ public class SpringDataJpaConfiguration {
     }
 
     private Properties hibernateProperties() {
-        ConnectionProperties cp = getConnectionProperties(env.value("hibernate.session_factory.vendor"));
-        return PropertiesHelper.NEW()
+        HibernateConnectionProperties cp = getConnectionProperties(env.value("hibernate.session_factory.vendor"));
+        return PropertiesBuilder.NEW()
                 .put("hibernate.dialect", env.value("hibernate.dialect"))
                 .put("hibernate.show_sql", env.value("hibernate.show_sql"))
                 .put("hibernate.current_session_context_class", env.value("hibernate.current_session_context_class"))

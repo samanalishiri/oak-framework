@@ -7,6 +7,5 @@ import org.springframework.context.annotation.Configuration;
  * @author Saman Alishiri, samanalishiri@gmail.com
  */
 @Configuration
-@ComponentScan(value = {"com.saman.oak"})
 public class ContextBean {
 }

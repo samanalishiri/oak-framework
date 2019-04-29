@@ -22,7 +22,7 @@ import java.util.Locale;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.saman.oak.portal.controller"})
+@ComponentScan({"com.saman.oak.portal"})
 public class SpringDispatcher extends WebMvcConfigurerAdapter {
 
     @Bean(name = "viewResolver")

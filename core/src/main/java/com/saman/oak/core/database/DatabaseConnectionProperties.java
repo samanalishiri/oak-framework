@@ -5,7 +5,7 @@ import com.saman.oak.core.protocol.Valuable;
 /**
  * @author Saman Alishiri
  */
-public enum DatabaseKey implements Valuable<String> {
+public enum DatabaseConnectionProperties implements Valuable<String> {
     DRIVER("jdbc.driver"),
     USERNAME("username"),
     PASSWORD("password"),
@@ -15,7 +15,7 @@ public enum DatabaseKey implements Valuable<String> {
     ;
     private final String value;
 
-    DatabaseKey(String value) {
+    DatabaseConnectionProperties(String value) {
         this.value = value;
     }
 

@@ -1,0 +1,47 @@
+package ir.navaco.core.datasource;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * @author Saman Alishiri, samanalishiri@gmail.com
+ */
+public enum HibernateConnectionProperties {
+
+    APACHE_DHCP(new HashMap() {{
+        put("hibernate.connection.initial", "hibernate.dbcp.initialSize");
+        put("hibernate.connection.active", "hibernate.dbcp.maxActive");
+        put("hibernate.connection.max", "hibernate.dbcp.maxIdle");
+        put("hibernate.connection.min", "hibernate.dbcp.minIdle");
+        put("hibernate.connection.timeout", "");
+        put("hibernate.connection.max_statements", "");
+    }}),
+    APACHE_C3P0(new HashMap() {{
+        put("hibernate.connection.initial", "");
+        put("hibernate.connection.active", "");
+        put("hibernate.connection.max", "hibernate.c3p0.max_size");
+        put("hibernate.connection.min", "hibernate.c3p0.min_size");
+        put("hibernate.connection.timeout", "hibernate.c3p0.timeout");
+        put("hibernate.connection.max_statements", "hibernate.c3p0.max_statements");
+    }}),
+    ;
+
+    private final Map<String, String> map;
+
+    HibernateConnectionProperties(Map<String, String> map) {
+        this.map = map;
+    }
+
+    public static HibernateConnectionProperties getConnectionProperties(String name) {
+        return HibernateConnectionProperties.valueOf(name.toUpperCase());
+    }
+
+    public Set<String> keys() {
+        return map.keySet();
+    }
+
+    public String value(String key) {
+        return map.get(key);
+    }
+}

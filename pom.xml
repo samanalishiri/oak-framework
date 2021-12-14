@@ -28,7 +28,7 @@
         <hibernate.version>5.2.12.Final</hibernate.version>
         <wildfly.version>11.0.0.CR1</wildfly.version>
         <slf4j.version>1.7.18</slf4j.version>
-        <log4j.version>2.5</log4j.version>
+        <log4j.version>2.16.0</log4j.version>
         <docker.image.prefix>springio</docker.image.prefix>
     </properties>
     <dependencyManagement>
